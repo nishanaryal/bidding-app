@@ -1,0 +1,256 @@
+/*Custom CSS from Asmita Pandey*/
+	.layered-image {
+		position: relative;
+	}
+	.layered-image img {
+	/*height: 200px;
+	width: 300px;*/
+}
+.image-overlay {
+	position: absolute;
+	top: 0px;
+	height: 582px;
+	left: 0px;
+	opacity: 1
+}
+.image-base{
+	background-repeat: no-repeat;
+	padding: 8% 16% 0 15%;
+	height: 515px;
+	background-size: contain;
+}
+.image-exhibitor{
+	margin-top: 2% !important;
+	left: 10em;
+	position: absolute !important;
+	z-index: 99;
+
+}
+/* .fr-view img {
+	position:absolute !important;}*/
+
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+	.image-exhibitor{
+		max-height: 15px !important;
+		left: 6em;
+		margin-top:2% !important;    
+	}
+	.about-cat-sec{
+		margin-top: 40px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+	.pull-right {
+    float: right!important;
+		margin: 10px 10px 0 0;}
+	
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px){
+	.image-exhibitor {
+		max-height:25px !important;
+		left: 8em;
+		margin-top:2% !important;
+	}
+	.about-cat-sec{
+		margin-top: 70px;
+	}
+	.cat-title{
+		color: #0098f7;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+@media only screen and (min-width: 601px) and (max-width: 767px) {
+	.fr-view img
+	{
+		height: auto;
+	}
+
+	.image-exhibitor{
+	 	max-height:32px !important;
+		left: 10em;
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 70px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+/* For 768 to 1024 Resolution */  
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+.image-overlay {
+	position: absolute;
+	top: 0px;
+	height: 420px;
+	left: 0px;
+	opacity: 1
+}
+.image-base{
+	background-repeat: no-repeat;
+	padding: 8% 16% 0 15%;
+	height: 374px;
+	background-size: contain;
+}
+.image-exhibitor {
+		height: 35px !important;
+    left: 8em;
+    margin-top: 3% !important;
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+	
+}  
+
+
+
+
+/* For 1366 Resolution */  
+
+@media only screen and (min-device-width: 1025px) and (max-device-width: 1280px) {
+   .image-exhibitor {
+		height:45px !important;
+		left: 8em;
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 480px !important;
+	}
+	.cat-title{
+		color:#0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+@media only screen and (min-width: 1025px) and (max-width: 1366px) {
+	.image-exhibitor {
+		height:50px !important;
+		left: 12em;
+		margin-top:3% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+
+@media only screen and (min-width: 1370px) and (max-width: 1605px) { 
+ .image-exhibitor {
+		height:60px !important;
+		left: 20em;
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+} 
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1280px) {
+	.image-overlay {
+    position: absolute;
+    top: 0px;
+    height: 560px;
+    left: 0px;
+	opacity: 1;
+	}
+}
+@media only screen and (min-device-width: 1605px) and (max-device-width: 1619px) {
+	.image-exhibitor{
+  height: 65px !important;
+    left: 15em;
+
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+
+@media only screen and (min-width: 1620px) and (max-width: 2048px) {
+	.image-exhibitor{
+  height: 65px !important;
+    left: 15em;
+
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+@media only screen and  (min-width: 2049px) and (max-width: 3840px) {
+/*For 4K Displays (Ultra HD)*/
+	.image-exhibitor{
+		height:60px !important;
+		left: 20em;
+		margin-top:2% !important; 
+	}
+	.about-cat-sec{
+		margin-top: 80px !important;
+	}
+	.cat-title{
+		color: #0098f7 !important;
+	}
+	.quotes_box{
+		padding-left: 0px !important;
+	}
+}
+
+
+
+
+/*
+@media screen and (max-width: 600px) {
+	.image-exhibitor{
+		height:20px !important;
+	width:100%;
+		left: 5em;
+		margin-top:1% !important;        
+}
+}*/
+
