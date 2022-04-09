@@ -1,5 +1,6 @@
 :root {
  --primary-color: rgb(14, 177, 209);
+ --menu-dropdown-color: #000;
  /*--primary-color: #252c41;*/
 }
 /*===============================================
@@ -69,8 +70,10 @@
 .red-skin .single-widgets.widget_search form button,
 .red-skin .single-widgets.widget_tags ul li a:hover, .red-skin .single-widgets.widget_tags ul li a:focus,
 .red-skin .pagination>.active>a, .red-skin .pagination>.active>a:focus, .red-skin .pagination>.active>a:hover, .red-skin .pagination>.active>span, .red-skin .pagination>.active>span:focus, .red-skin .pagination>.active>span:hover, .red-skin .pagination>li>a:focus, .red-skin .pagination>li>a:hover{
-	background-color:#e4074e;
-	background:#e4074e;
+	/* background-color:#e4074e;
+	background:#e4074e; */
+	background-color: var(--menu-dropdown-color);
+	background: var(----menu-dropdown-color);
 }
  
 .red-skin a.link:hover, .red-skin a.link:focus, .red-skin a:hover, a:focus,

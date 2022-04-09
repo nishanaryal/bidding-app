@@ -53,7 +53,7 @@ $searchQuery = mysqli_query($mysqli,"SELECT * FROM products WHERE name like '%".
                 <div class="sec-heading center">
                     <h3>Search <span class="theme-cl"> Results</span></h3>
                     <h4 class="text-center">
-                        Showing  <?php count($searchQuery); ?> searches for Keyword: <?php echo $search; ?>
+                        Showing searches for Keyword: <?php echo $search; ?>
                     </h4>
                 </div>
             </div>

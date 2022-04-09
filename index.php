@@ -93,12 +93,12 @@ include_once("func.php");
 			<!-- Exhyibitors -->
 
 
-			<div class="container">
+			<!-- <div class="container">
 			<div data-countdown="2023/01/01"></div>
 <div data-countdown="2022/10/01"></div>
 <div data-countdown="2018/01/01"></div>
 <div data-countdown="2019/01/01"></div>
-			</div>
+			</div> -->
 
 
 			<!-- Featured Exhibitors -->
