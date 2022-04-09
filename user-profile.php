@@ -192,9 +192,7 @@ if(isset($_POST['update_UserProfile']))
 
             <!-- ============================ Dashboard End ================================== -->
             
-            <!-- ============================ Call To Action Start ================================== -->
-            <?php include('includes/call-to-action.php'); ?>
-            <!-- ============================ Call To Action End ================================== -->
+           
             
             <!-- ============================ Footer Start ================================== -->
             <?php include('includes/footer.php'); ?>

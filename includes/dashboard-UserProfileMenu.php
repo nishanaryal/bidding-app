@@ -20,7 +20,14 @@
 										<li class="active"><a href="user-profile.php"><i class="ti-dashboard"></i>Manage Profile</a></li>
 										<li><a href="dashboard-photo.php?name=marsden-park-home"><i class="ti-user"></i>Manage Photo</a></li>
 										<li><a href="dashboard-mylistings.php"><i class="ti-layers-alt"></i>My Listing</a></li>
-										<li><a href="confirm-biding-request.php"><i class="ti-layers-alt"></i>View Bidders</a></li>
+
+										<?php if($user_role == "admin") 
+											echo '<li><a href="confirm-biding-request.php"><i class="ti-layers-alt"></i>View Bidders</a></li>';
+										?>
+										<?php if($user_role == "seller") 
+											echo '<li><a href="product-bidders.php"><i class="ti-layers-alt"></i>View Bidders</a></li>';
+										?>
+										
 										
 										<li><a href="logout.php"><i class="ti-lock"></i>Logout</a></li>
 									</ul>

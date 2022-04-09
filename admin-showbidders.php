@@ -11,15 +11,7 @@ $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
 $user_type = $_SESSION["user_type"];
 
-$bid = $_GET['bid'];
-$pid = $_GET['pid'];
-
-
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
-
-// $updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin = 1 WHERE bid_id = '$bid'");
-
-$makeProductInactive = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $pid");
 
 $queryData = mysqli_query($mysqli,"SELECT
   products.name AS productName,
@@ -35,62 +27,6 @@ JOIN bidders
   ON products.productid = bidders.product_id
 JOIN user
   ON user.userid = bidders.user_id");
-
-    
-$updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin='1' WHERE bid='$bid'");
-    //  $query="UPDATE user SET name='$name',email='$Email',phone='$Phone', address='$Address' where username='$username'";
-     
-    if($updateData){
-        echo "<script>alert('Update Successfully');</script>";
-        header("Location:product-bidders.php?id=".$pid);
-    }
-    if(!$updateData){
-        // echo mysqli_error();
-        // die('Error Occured: '.mysqli_error());
-    }
-    // else{
-    //     die("Couldnot update the details");
-    // }
-
-    // header("Location:product-bidders.php?pid=".$pid);
-
-
-// // Edit Products
-// if ($_SERVER["REQUEST_METHOD"] == "POST") 
-// {
-// 	$product_id = $_POST['productid'];
-// 	$user_id = $_POST['user_id'];
-// 	$isWin = $_POST['isWin'];
-
-try {
-
-	// $makeProductInactive = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $pid");
-
-	// UPDATE `bidders` SET `bid_time` = '2022-03-24 01:41:34' WHERE `bidders`.`bid_id` = 2;
-
-
-// UPDATE Product SET ProductStatus = 'Yes' WHERE ProductID = '$prodid'
-	// $markWinnerBidder = mysqli_query($mysqli,"UPDATE bidders SET isWin = 1 WHERE bid_id = '$bid'");
-	// $markWinnerBidder = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $getProductID");
-
-
-	} 
-catch (Exception $e)
-{
-$message = 'Unable to add new product.' + $e;
-throw new Exception( 'Unable to save details. Please try again later.',0,$e);
-}
-
-// if(!$insertData)
-// {
-// $message = 'Couldnot save data..';
-//        echo mysqli_error();
-// }
-	//  header("Location:product-bidders.php?pid=".$pid);
-
-// } 
-
-
 
 ?>
 
@@ -194,14 +130,14 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 												<td>
 													<?php if($listing['isWin']){
 													echo "<span class='badge badge-primary'>Winner</span>";
-												}
-												else{
-													echo "<span class='badge badge-danger'>-</span>";
-												}  ?>
+													}
+													else{
+														echo "<span class='badge badge-danger'>-</span>";
+													}
+													?>
 												</td>
 												<td><?php echo $listing['biddingTime']; ?></td>
 											</tr>
-
 											<?php
 											} ?>
 											

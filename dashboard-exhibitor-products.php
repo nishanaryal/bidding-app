@@ -6,6 +6,10 @@ include_once("func.php");
 
 $username = $_SESSION["email"];
 $UserID = $_SESSION["userid"];
+$user = $_SESSION["username"];
+$user_image = $_SESSION["user_image"];
+$user_type = $_SESSION["user_type"];
+
 $orgSlug = (string)$_GET['name'];
 $exhibitorID = (string)$_GET['exhibitorID'];
 

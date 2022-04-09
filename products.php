@@ -8,6 +8,7 @@ include_once("func.php");
 $Slug = (string)$_GET['name'];
 $bid = (string)$_GET['bid'];
 
+
 $exhibitorID;
 //$queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
 $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM products WHERE slug = '$Slug'");
@@ -437,17 +438,17 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 
 
 			// AJAX
-			function closeBID () {
-				$.ajax({
-					url:"functions.php?action=BidClose_AnnounceWinner",    //the page containing php script
-					type: "POST",    //request type,
-					dataType: 'json',
-					data: {propertyID: <?php echo $featuredExhibitor['id']; ?>},
-					success:function(result){
-						console.log(result);
-					}
-				});
-   			 }
+			// function closeBID () {
+			// 	$.ajax({
+			// 		url:"functions.php?action=BidClose_AnnounceWinner",    //the page containing php script
+			// 		type: "POST",    //request type,
+			// 		dataType: 'json',
+			// 		data: {propertyID: <?php echo $featuredExhibitor['id']; ?>},
+			// 		success:function(result){
+			// 			console.log(result);
+			// 		}
+			// 	});
+   			//  }
 			// AJAX
 		</script>
 		<!-- Single Instance -->

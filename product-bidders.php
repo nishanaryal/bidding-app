@@ -122,6 +122,9 @@ $bidders = mysqli_query($mysqli,"SELECT * FROM bidders WHERE product_id = '$pid'
 												<td><?php echo $listing['bid_time']; ?></td>
 												<td><?php if($listing['isWin']){
 													echo "<span class='badge badge-primary'>Winner</span>";
+												}
+												else{
+													echo "<span class='badge badge-default'>-</span>";
 												}  ?>
 												</td>												
 												
