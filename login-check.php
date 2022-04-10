@@ -24,8 +24,10 @@ if (isset($_POST['member_login_submit'])) {
 	{
 		$userName = $data["username"];
 		$userID = $data["userid"];
+		$user_fullname = $data["name"];
 		$image = $data["image"];
 		$user_type = $data["user_type"];
+		$user_role = $data["user_role"];
 
 
 	// Count the number of user/rows returned by query 
@@ -39,9 +41,13 @@ if (isset($_POST['member_login_submit'])) {
 		$_SESSION["email"] = $email;
 		$_SESSION["userid"] = $userID;
 		$_SESSION["username"] = $userName;
-		$_SESSION["user_image"] = $image;
+		$_SESSION["password"] = $password;
+		$_SESSION["user_fullname"] = $user_fullname;
 		$_SESSION["user_type"] = $user_type;
+		$_SESSION["user_role"] = $user_role;
 		$_SESSION['logged_in'] = true;
+
+		// Return to index.php after setting Session variables
 		header("location: index.php");
 	} else {
 		echo "User email or password is not matched <br/><br/>";

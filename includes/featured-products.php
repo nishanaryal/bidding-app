@@ -42,7 +42,7 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                     if($auction_startDate >= $datenow) { 
                                         $BidMsg = "<div class='listing-badge now-open'>Opening Soon</div>";
                                         $bidBtnTxt = "READ MORE";
-                                        $biddingTime = "<span class='badge badge-primary'><b>Bidding Starts in </b><div data-countdown=".$auction_endDate."></div><span>";
+                                        $biddingTime = "<span class='badge badge-success'>Bidding Starts in <div data-countdown=".$auction_endDate."></div><span>";
                                     }
 
                                     ?>
@@ -64,8 +64,6 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                                 </a>
                                                 <div class="Reveal-verticle-listing-caption">
                                                     <a href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>" class="like-listing"></a>
-
-                                                    
 
                                                     <div class="Reveal-listing-shot-caption">
                                                         <h4><a href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>"><?php echo $featuredProduct['name']; ?></a> <span class="approve-listing"><i class="fa fa-check"></i></span></h4>

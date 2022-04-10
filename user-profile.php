@@ -8,7 +8,10 @@ $username = $_SESSION["email"];
 $userID = $_SESSION["userid"];
 $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
+// $user_fullname = $_SESSION["user_fullname"];
 $user_type = $_SESSION["user_type"];
+// $user_role = $_SESSION["user_role"];
+
 
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE userid = '$userID'");
 
@@ -71,21 +74,20 @@ if(isset($_POST['update_UserProfile']))
         <link href="assets/css/colors.css" rel="stylesheet">
 
 
-        <!-- JS Cropper  -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->       
-    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
-    <script src="https://unpkg.com/dropzone"></script>
-    <script src="https://unpkg.com/cropperjs"></script>
-    <!-- ./JS Cropper -->
+       <!-- JS Cropper  -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->       
+	<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+	<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+	<script src="https://unpkg.com/dropzone"></script>
+	<script src="https://unpkg.com/cropperjs"></script>
+	<!-- ./JS Cropper -->
 
 
-    <!-- JS Cropper CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/js-cropper.css">
-    <!-- ./JS Cropper CSS -->
-
+	<!-- JS Cropper CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/js-cropper.css">
+	<!-- ./JS Cropper CSS -->
 
         
     </head>
@@ -176,6 +178,60 @@ if(isset($_POST['update_UserProfile']))
                                     </div>
                                 </div>
 
+                                <hr>
+
+                                <?php $default_ProfilePicture = ($user['user_photo'] != '') ? 'upload/profile/'. $user['user_photo'] : 'assets/img/profile-profile-holder.png'; ?>
+                                <!-- Upload Profile Pic -->
+                                <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cropper/4.0.0/cropper.min.css">
+								<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+
+								<h3 class="photoUploadTitle">Upload Profile Picture</h3>
+								<div class="alert alert-primary">
+									<b>ACCEPTED FORMATS:</b> JPG, GIF &amp; PNG
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+									    <div class="current-photo-container well">
+															
+											<h3 class="text-center">Profile Picture</h3>
+											<p>Recommended Size: 300 pixels by 300 pixels</p>
+											<div class="image_area">
+												<form method="post">
+													<label for="upload_image_ProfilePicture">
+														<img src="<?php echo $default_ProfilePicture; ?>" id="uploaded_image_ProfilePicture" />
+														<div class="overlay">
+															<div class="text">Click to Change Profile Picture</div>
+															</div>
+															<input type="file" name="imageProfilePicture" class="image" id="upload_image_ProfilePicture" style="display:none" />
+													</label>
+												</form>
+											</div>
+															
+										</div>
+									</div>
+										<!-- <div class="col-md-6">
+														<div class="current-logo-container well">
+															<h3 class="text-center"> Profile Logo </h3>
+															<p>Please Upload logo with Minimum Size: 300 pixels by 100 pixels</p>
+															<div class="image_area">
+																<form method="post">
+																	<label for="upload_image_ProfileLogo">
+																		<img src="<?php echo $default_ProfileLogo; ?>" id="uploaded_image_ProfileLogo" />
+																		<div class="overlay">
+																			<div class="text">Click to Change Profile Logo</div>
+																		</div>
+																		<input type="file" name="imageProfileLogo" class="image" id="upload_image_ProfileLogo" style="display:none" />
+																	</label>
+																</form>
+															</div>
+															
+			
+														</div>
+									</div> -->
+								</div>
+                                <!-- ./Upload Profile Pic -->
+
                                 
                             </div>
                         </div>
@@ -188,24 +244,18 @@ if(isset($_POST['update_UserProfile']))
             </section>
 
             <?php include('includes/jsCropperImageUploader.php'); ?>
-
-
-            <!-- ============================ Dashboard End ================================== -->
-            
            
             
-            <!-- ============================ Footer Start ================================== -->
+            <!-- Footer Start -->
             <?php include('includes/footer.php'); ?>
-            <!-- ============================ Footer End ================================== -->
+            <!-- Footer End -->
             
             <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
             
 
         </div>
-        <!-- ============================================================== -->
         <!-- End Wrapper -->
-        <!-- ============================================================== -->
 
         <?php include('includes/dashboard-footerJS.php'); ?>
 
@@ -213,9 +263,7 @@ if(isset($_POST['update_UserProfile']))
 
         <script>
 
-        var listingSlug = "<?php echo $orgSlug; ?>";
-        var orgSlug;
-
+        
             // ProfilePicture JS Cropper Implementation
         $(document).ready(function(){
             var $modalProfilePicture = $('#ProfilePicturemodal');
@@ -266,7 +314,7 @@ if(isset($_POST['update_UserProfile']))
                         $.ajax({
                             url:'uploadImgCustom.php',
                             method:'POST',
-                            data:{imageProfilePicture:base64dataProfilePicture, orgSlug:listingSlug},
+                            data:{imageProfilePicture:base64dataProfilePicture},
                             success:function(data)
                             {
                                 $modalProfilePicture.modal('hide');

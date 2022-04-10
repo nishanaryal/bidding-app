@@ -10,7 +10,8 @@ global $mysqli;
 // Upload Profile Picture contactPerson_Img
 if(isset($_POST['imageProfilePicture']))
 {
-	$listingSlug = $_POST['orgSlug'];
+	// $listingSlug = $_POST['orgSlug'];
+	$userID = $UserID;
 	$data_profilePicture = $_POST['imageProfilePicture'];
 
 	$image_array_profilePicture_1 = explode(";", $data_profilePicture);
@@ -25,12 +26,37 @@ if(isset($_POST['imageProfilePicture']))
 
 	file_put_contents($image_location_profilePicture, $data_profilePicture);
 
-	mysqli_query($mysqli, "UPDATE exhibitor_profile SET profile_photo='$image_name_profilePicture' WHERE slug='$listingSlug'");
-
-	// $sql = "UPDATE users SET profile_coverImg='$image_name' WHERE email='$_SESSION["email"]'";
+	mysqli_query($mysqli, "UPDATE user SET user_photo='$image_name_profilePicture' WHERE userid='$UserID'");
 
 	echo $image_location_profilePicture;
 }
+
+
+// Product Image
+// Upload Profile Picture contactPerson_Img
+if(isset($_POST['imageProductPicture']))
+{
+	$productID = $_POST['pid'];
+	$userID = $UserID;
+	$data_productPicture = $_POST['imageProductPicture'];
+
+	$image_array_productPicture_1 = explode(";", $data_productPicture);
+
+	$image_array_productPicture_2 = explode(",", $image_array_productPicture_1[1]);
+
+	$data_productPicture = base64_decode($image_array_productPicture_2[1]);
+
+	$image_name_productPicture = time() . '.jpg';
+	$image_location_productPicture = 'upload/products/' . $image_name_productPicture;
+	// $username = $_SESSION["email"];
+
+	file_put_contents($image_location_productPicture, $data_productPicture);
+
+	mysqli_query($mysqli, "UPDATE products SET photo='$image_name_productPicture' WHERE productid='$productID'");
+
+	echo $image_location_productPicture;
+}
+// ./Product Image
 
 
 
@@ -38,7 +64,7 @@ if(isset($_POST['imageProfilePicture']))
 // Upload Profile Logo
 if(isset($_POST['imageProfileLogo']))
 {
-	$listingSlug = $_POST['orgSlug'];
+	// $listingSlug = $_POST['orgSlug'];
 	$data_profileLogo = $_POST['imageProfileLogo'];
 
 	$image_array_profileLogo_1 = explode(";", $data_profileLogo);
@@ -64,7 +90,7 @@ if(isset($_POST['imageProfileLogo']))
 // uPLOAD PROFILE COVER IMAGE
 if(isset($_POST['image']))
 {
-	$listingSlug = $_POST['orgSlug'];
+	// $listingSlug = $_POST['orgSlug'];
 	$data = $_POST['image'];
 
 	

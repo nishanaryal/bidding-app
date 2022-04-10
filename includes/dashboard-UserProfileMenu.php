@@ -9,10 +9,11 @@
 								
 								?>
 								<div class="Reveal-d-user-avater">
-									<img src="<?php echo $userImage; ?>" class="img-fluid avater" alt="">
+									<img src="<?php echo $userImage; ?>" class="img-fluid avater" title="<?php echo $username; ?>" alt="<?php echo $username; ?>">
 									<h4> <?php echo $user['name']; ?></h4>
-									<p class="badge badge-primary"><?php echo $user_type; ?></p><br>
-									<span><i class="ti-envelope"></i> <?php echo $user['email']; ?></span>
+									<!-- <h4><?php isset($user_fullname) ? $user_fullname: "Welcome"; ?></h4> -->
+									<p class="badge badge-primary badge-lg"><?php echo $user_type; ?></p><br>
+									<span><i class="ti-envelope"></i> <?php echo $username; ?></span>
 								</div>
 								
 								<div class="Reveal-dash-navigation">

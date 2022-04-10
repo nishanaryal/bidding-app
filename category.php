@@ -36,19 +36,11 @@ $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM products WHERE categor
 	</head>
 	
 	<body class="blue-skin">
-		<!-- ============================================================== -->
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- ============================================================== -->
-		<div id="preloader"><div class="preloader"><span></span><span></span></div></div>
-		
-		<!-- ============================================================== -->
-		<!-- Main wrapper - style you can find in pages.scss -->
-		<!-- ============================================================== -->
+		<!-- Main wrapper -->
 		<div id="main-wrapper">
 		
-			<!-- ============================================================== -->
 			<!-- Top header  -->
-			<!-- ============================================================== -->
+		
 			<!-- Start Navigation -->
 			<?php include 'includes/navigation.php'; ?>
 			<!-- End Navigation -->
@@ -57,7 +49,7 @@ $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM products WHERE categor
 			
 			<?php while($catData = mysqli_fetch_array($categoryData))
 			{ ?>	
-			<!-- ============================ Page Title Start================================== -->
+			<!--  Page Title Start -->
 			<div class="image-cover page-title" style="background:url(upload/category/<?php echo $catData['featuredImage']; ?>) no-repeat;" data-overlay="6">
 				<div class="container">
 					<div class="row">
@@ -113,17 +105,17 @@ $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM products WHERE categor
 										
 										
 										<div class="Reveal-signle-item">
-											<a class="listing-item" href="listing.php?name=<?php echo $featuredExhibitor['slug']; ?>">
+											<a class="listing-item" href="products.php?name=<?php echo $featuredExhibitor['slug']; ?>&bid=<?php echo $featuredExhibitor['productid']; ?>">
 												<div class="listing-items">
 													<div class="listing-shot-img">
-														<img src="upload/cover/<?php echo $featuredExhibitor['profile_coverImg']; ?>" class="img-responsive" alt="" />
+														<img src="upload/products/<?php echo $featuredExhibitor['photo']; ?>" class="img-responsive" alt="" />
 													</div>
 												</div>
 											</a>
 											<div class="Reveal-verticle-listing-caption">
-												<a href="listing.php?name=<?php echo $featuredExhibitor['slug']; ?>" class="like-listing"><i class="ti-heart"></i></a>
+												<a href="products.php?name=<?php echo $featuredExhibitor['slug']; ?>&bid=<?php echo $featuredExhibitor['productid']; ?>" class="like-listing"><i class="ti-heart"></i></a>
 												<div class="Reveal-listing-shot-caption">
-													<h4><a href="listing.php?name=<?php echo $featuredExhibitor['slug']; ?>"><?php echo $featuredExhibitor['name']; ?></a> <span class="approve-listing"><i class="fa fa-check"></i></span></h4>
+													<h4><a href="products.php?name=<?php echo $featuredExhibitor['slug']; ?>&bid=<?php echo $featuredExhibitor['productid']; ?>"><?php echo $featuredExhibitor['name']; ?></a> <span class="approve-listing"><i class="fa fa-check"></i></span></h4>
 													<span><i class="ti-location-pin text-success"></i><?php echo $featuredExhibitor['base_price']; ?></span>
 													<p class="Reveal-short-descr"><?php echo $featuredExhibitor['shortdescription']; ?></p>
 													

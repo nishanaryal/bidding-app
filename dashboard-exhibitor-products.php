@@ -102,20 +102,24 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 										{ ?>	
 										<li>
 											<div class="Reveal-list-box-listing">
-												<div class="Reveal-Reveal-list-box-listing-img"><a href="#"><img src="upload/cover/<?php echo $listing['photo']; ?>" alt="<?php echo $listing['name']; ?>" title="<?php echo $listing['name']; ?>"></a></div>
+												<div class="Reveal-Reveal-list-box-listing-img"><a href="#"><img src="upload/products/<?php echo $listing['photo']; ?>" alt="<?php echo $listing['name']; ?>" title="<?php echo $listing['name']; ?>"></a></div>
 												<div class="Reveal-Reveal-box-listing-content">
 													<div class="inner">
 														<h2><a href="dashboard-photo.php?name=<?php echo $listing['slug']; ?>"><b><?php echo $listing['name']; ?></b></a></h2>
-														<span><strong>Auction Base Price: </strong><?php echo $listing['base_price']; ?></span>
-														<p><b>Auction Start Date: </b><?php echo $listing['auction_start']; ?></p>
-														<p><b>Auction End Date: </b><?php echo $listing['auction_end']; ?></p>
+														<p>
+															<span><strong>Auction Base Price: </strong>NPR. <?php echo $listing['base_price']; ?></span>
+															<br>
+															<span><b>Auction Start Date: </b><?php echo $listing['auction_start']; ?></span>
+															<br>
+															<span><b>Auction End Date: </b><?php echo $listing['auction_end']; ?></span>
+														</p>
 													</div>
 												</div>
 											</div>
 											<div class="buttons-to-right">
 												<a href="product-bidders.php?pid=<?php echo $listing['productid']; ?>" class="button gray"><i class="ti-pencil"></i> View Bidders</a>
 
-												<a href="edit-product.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-pencil"></i> Edit</a>
+												<a href="product-edit.php?pid=<?php echo $listing['productid']; ?>" class="button gray"><i class="ti-pencil"></i> Edit</a>
 												
 												<a href="view-product.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-book"></i> View</a>
 											</div>

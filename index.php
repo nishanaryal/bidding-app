@@ -206,6 +206,4 @@ include_once("func.php");
 
 
 	</body>
-
-<!-- Mirrored from codeminifier.com/reveal-live/reveal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 31 Jul 2021 10:35:29 GMT -->
 </html>

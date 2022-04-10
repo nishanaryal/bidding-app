@@ -131,10 +131,6 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 	</head>
 	
 	<body class="red-skin">
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- <div id="preloader"><div class="preloader"><span></span><span></span></div></div> -->
-		
-
 		<!-- Main wrapper - style you can find in pages.scss -->
 		<div id="main-wrapper">
 
@@ -142,7 +138,6 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 			<?php include('includes/navigation.php') ?>
 			<!-- End Navigation -->
 			<div class="clearfix"></div>
-			<!-- ============================================================== -->
 			<!-- Top header  -->
 		
 			
@@ -151,8 +146,6 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 				<div class="container">
 					
 					<div class="row">
-						
-						
 						<div class="col-lg-3 col-md-4 col-sm-12">
 							<?php while($user = mysqli_fetch_array($userData))
 							{ 
@@ -168,8 +161,6 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 									<h3>Bidders List</h3>
 									
 									<button style="margin-bottom: 30px;" class="btn btn-primary" onclick="history.back()">Go Back</button>
-
-
 										<!-- Other Bidders in this product -->
 										<table class="table table-bordered table-responsive" id="BiddingTable">
 											<thead>

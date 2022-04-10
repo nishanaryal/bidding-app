@@ -9,10 +9,11 @@ $Slug = (string)$_GET['name'];
 $bid = (string)$_GET['bid'];
 
 
-
+$maxBidAmt = 0;
 $exhibitorID;
 //$queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
 $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM products WHERE slug = '$Slug'");
+
 
 // $basePrice =  featuredExhibitor['base_price'];
 $bidders = mysqli_query($mysqli,"SELECT * FROM bidders WHERE product_id = '$bid'");
@@ -21,7 +22,13 @@ $bidders = mysqli_query($mysqli,"SELECT * FROM bidders WHERE product_id = '$bid'
 // Get Highest Bidding Amount
 // $maxBidAmt = mysql_query($mysqli,"SELECT MAX(amount) FROM bidders");
 
-$maxBidAmt = mysqli_query($mysqli, "SELECT amount FROM bidding ORDER BY bid_id DESC LIMIT 1");
+$maxBiddingAmt = mysqli_query($mysqli, "SELECT amount FROM bidders WHERE product_id = '$bid' ORDER BY bid_id DESC LIMIT 1");
+while ($maxAmt = $maxBiddingAmt->fetch_assoc()) {
+    $maxBidAmt = $maxAmt['amount'];
+}
+
+
+
 
 // $result = mysql_query("SELECT MAX(amount) FROM bidders");
 //     $row = mysql_fetch_row($result);
@@ -85,6 +92,14 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 	<?php include 'includes/header.php';?>  
 
 	<link rel="stylesheet" type="text/css" href="assets/css/custom-style.css">
+
+	<style>
+		#bid_amount{
+			font-size:28px;
+			text-align:center;
+			font-weight:600;
+		}
+	</style>
 	
 </head>
 
@@ -111,6 +126,7 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 								$todayDate = date("Y-m-d");
                                 $auction_startDate = $featuredExhibitor['auction_start'];
                                 $auction_endDate = $featuredExhibitor['auction_end'];
+								$startingPrice = $featuredExhibitor['base_price'];
 							?>
 							<div class="listing-badge now-open" id="bidding-msg"></div>
 										
@@ -175,17 +191,25 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 						<div class="col-lg-3 col-md-3 col-sm-12">
 										<div class="row main_login_form">
 											<div class="login_form_dm" id="allowBid">
-												<h1 class="text-center">
-													<?php echo $maxBidAmt; ?>
-												</h1>
+											<?php
+													$maxBidAmt = ($maxBidAmt > $startingPrice) ? $maxBidAmt : $startingPrice;
+													$minBidAmt = ($maxBidAmt > $startingPrice) ? $maxBidAmt : $startingPrice;
+													
+													$maxBidAmt = $minBidAmt + ($minBidAmt*0.01);
+												?>
+												
+												<!-- <h1 class="text-center">								
+												<?php echo $minBidAmt ."    ". $maxBidAmt; ?>
+												</h1> -->
+												
 												<?php if($featuredExhibitor['allowBidding'] == "yes") { ?>  
                                                  
 												<?php if(! empty($_SESSION['logged_in'])) { ?>
 												<form id="bidding_form" method="POST" class="edd_form">
 													<fieldset>
 														<p class="edd-login-username">
-															<label>BID AMOUNT</label>
-															<input class="form-control" type="number" id="bid_amount" min="<?php echo $featuredExhibitor['base_price']; ?>" name="bid_amount" placeholder="BID Amount" value="<?php echo $featuredExhibitor['base_price'] + 10; ?>" />
+															<label>MIN BID AMOUNT <?php echo $minBidAmt; ?></label>
+															<input class="form-control" type="number" id="bid_amount" max="<?php echo $maxBidAmt; ?>" min="<?php echo $minBidAmt; ?>" name="bid_amount" placeholder="BID Amount" value="<?php echo $minBidAmt; ?>" />
 														</p>
 														
 														
@@ -218,6 +242,7 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 
 											</div>
 											<img id="bidClosedImg" src="assets/img/bidClosed.jpg" width="100%" style="display: none;" />
+											<img id="bidOpeningSoonImg" src="assets/img/bidOpening.jpg" width="100%" style="display: none;" />
 										</div>
 
 							
@@ -325,35 +350,49 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 //     + '<span>%S</span> sec'));
 // });
 
+			var m = new Date();
+			var currentDateTime =
+				m.getUTCFullYear() + "-" +
+				("0" + (m.getUTCMonth()+1)).slice(-2) + "-" +
+				("0" + m.getUTCDate()).slice(-2) + " " +
+				("0" + m.getUTCHours()).slice(-2) + ":" +
+				("0" + m.getUTCMinutes()).slice(-2) + ":" +
+				("0" + m.getUTCSeconds()).slice(-2);
+
+
 				var auctionStartDate = '<?php echo $auction_startDate; ?>';
 				var auctionEndDate = '<?php echo $auction_endDate; ?>';
-				var nowDateTime = new Date().toISOString();
-				console.log('Start' + auctionStartDate);
-				console.log('End' + auctionEndDate);
-				console.log('Now' + nowDateTime);
+				var nowDateTime = currentDateTime;
+				// console.log('Start ' + auctionStartDate);
+				// console.log('End ' + auctionEndDate);
+				// console.log('Now ' + nowDateTime);
 				var ribbon = '';
 				var allowBid = 0;
+				auctionTime = '';
 
 				if(auctionEndDate > nowDateTime) {
 					ribbon = 'Bidding Running';
 					allowBid = 1;
+					auctionTime = auctionEndDate;
 					// $('#content-container').html('My content here :-)');
 				}
 				if(auctionEndDate < nowDateTime) {
 					ribbon = 'Bidding Expired';
 					allowBid = 0;
+					auctionTime = auctionEndDate;
+					$('#bidClosedImg').css("display", "block");
 					// $('#content-container').html('My content here :-)');
 				}
 				if(auctionStartDate > nowDateTime) {
 					ribbon = 'Auction Opening Soon';
 					allowBid = 0;
+					auctionTime = auctionEndDate;
+					$('#bidOpeningSoonImg').css("display", "block");
 					// $('#content-container').html('My content here :-)');
 				}
 
 				$('#ribbon').html('<div class="badge badge-info">' + ribbon + '</div>');
 				$('#bidding-msg').html(ribbon);
-
-				
 
 				if(allowBid == 1) {
 					$('#allowBidding').show();
@@ -362,10 +401,7 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 				// 	$('#allowBid').css("display", "none");
 				// }
 
-
-
-
-			$('#clock').countdown(auctionEndDate)
+			$('#clock').countdown(auctionTime)
 				.on('update.countdown', function(event) {
 				var format = '%H:%M:%S';
 			
@@ -404,8 +440,5 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 			// AJAX
 		</script>
 		<!-- Single Instance -->
-
 </body>
-
-<!-- Mirrored from codeminifier.com/reveal-live/reveal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 31 Jul 2021 10:35:29 GMT -->
 </html>
