@@ -4,7 +4,8 @@ include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
 
-$queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$email'");
+
+// $queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$email'");
 
 global $mysqli;
 

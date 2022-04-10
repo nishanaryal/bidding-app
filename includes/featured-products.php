@@ -20,26 +20,39 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                 { ?>
                                     <?php
 
-                                    $datenow = date("Y-m-d");
+                                    $datenow = date("Y-m-d H:i:s");
                                     $auction_startDate = $featuredProduct['auction_start'];
                                     $auction_endDate = $featuredProduct['auction_end'];
+                                    $bidBtnTxt = '';
+                                    $BidMsg = "";
+                                    $biddingTime = "";
+
+                                    if($auction_endDate >= $datenow) { 
+                                        $BidMsg = "<div class='listing-badge now-open'>Running</div>";
+                                        $bidBtnTxt = "BID NOW";
+                                        $biddingTime = "<p class='badge badge-info'><b>Bidding Expires in </b><span data-countdown=".$auction_endDate."></span><p>";
+                                    }
+
+                                    if($auction_endDate < $datenow) {
+                                        $BidMsg = "<div class='listing-badge now-close'>Expired</div>";
+                                        $bidBtnTxt = "READ MORE";
+                                        $biddingTime = "<span class='badge badge-danger'><b>Bidding Expired in </b>".$auction_endDate. "<span>";
+                                    }
+
+                                    if($auction_startDate >= $datenow) { 
+                                        $BidMsg = "<div class='listing-badge now-open'>Opening Soon</div>";
+                                        $bidBtnTxt = "READ MORE";
+                                        $biddingTime = "<span class='badge badge-primary'><b>Bidding Starts in </b><div data-countdown=".$auction_endDate."></div><span>";
+                                    }
 
                                     ?>
+
+                                    
+
+
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="Reveal-verticle-list listing-shot">
-                                            <?php if($auction_endDate >= $datenow) { ?>
-                                                <div class="listing-badge now-open">Running</div>
-                                            <?php } ?>
-
-                                            <?php if($auction_endDate < $datenow) { ?>
-                                                <div class="listing-badge now-close">Expired</div>
-                                            <?php } ?>
-
-                                            <?php if($auction_startDate >= $datenow) { ?>
-                                                <div class="listing-badge now-open">Opening Soon</div>
-                                            <?php } ?>
-
-
+                                            <?php echo $BidMsg; ?>
 
                                             <div class="Reveal-signle-item">
                                                 <a class="listing-item" href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>">
@@ -60,16 +73,14 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                                         <div class="property_meta"> 
                                                           <div class="list-fx-features">
                                                                 <div class="listing-card-info-icon">
-                                                                    <span class="inc-fleat inc-check"><b>Ends at </b> <?php echo $featuredProduct['auction_end']; ?></span>
-                                                                </div>
-                                                                <div class="listing-card-info-icon">
                                                                     <span class="inc-fleat inc-check"><b>Starting from </b>Rs. <?php echo $featuredProduct['base_price']; ?></span>
+                                                                    <?php echo $biddingTime; ?>
                                                                 </div>
                                                             </div>  
                                                         </div>
 
                                                         <?php if($featuredProduct['allowBidding'] == "yes") { ?>
-                                                            <a href="javascript:bid('<?php echo $featuredProduct['slug']; ?>', <?php echo $featuredProduct['productid']; ?>)" class="btn btn-primary">BID NOW
+                                                            <a href="javascript:bid('<?php echo $featuredProduct['slug']; ?>', <?php echo $featuredProduct['productid']; ?>)" class="btn btn-primary"><?php echo $bidBtnTxt; ?>
                                                             </a>
                                                         <?php } ?>
 

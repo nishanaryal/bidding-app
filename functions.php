@@ -89,25 +89,6 @@ function countCategoryListing($categoryid){
 }
 ?>
 
-<?php function showCategories(){
-
-	 $categoryList = mysqli_query($mysqli, "select 'name', 'displayTitle', 'icon_image' from categories");
-
-	// Count the number of user/rows returned by query 
-	$count = mysqli_num_rows($categoryList);
-	if ($count > 0) {
-	$categories = array();
-	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
-		array_push( $categories, $row );
-	 }
-
-	 return $categories;
-	}
-}
-
-?>
-
-
 <?php function getExhibitorBySlug($slug){
 
 	 $exhibitorData = mysqli_query($mysqli, "select 'name', 'displayTitle', 'icon_image' from exhibitor_profile WHERE slug = '$slug'");
@@ -121,7 +102,6 @@ function countCategoryListing($categoryid){
 	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
 		array_push( $categories, $row );
 	 }
-
 	 return $categories;
 	}
 }

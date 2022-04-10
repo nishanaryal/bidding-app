@@ -1,6 +1,22 @@
 <?php 
 include_once("db-config.php"); 
 
+function showNewCategories(){
+	global $mysqli;
+   $categoryList = mysqli_query($mysqli, "SELECT * FROM categories WHERE isActive = 1");
+
+  // Count the number of user/rows returned by query 
+  $count = mysqli_num_rows($categoryList);
+  if ($count > 0) {
+  $categories = array();
+  while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
+	  array_push( $categories, $row );
+   }
+
+   return $categories;
+  }
+}
+
 
 function countCategoryListing1($categoryid){
 	global $mysqli;
@@ -11,22 +27,24 @@ function countCategoryListing1($categoryid){
 	return $result;
 }
 
-function showCategories1(){
- 	 global $mysqli;
-	 $categoryList = mysqli_query($mysqli, "SELECT * FROM categories WHERE isActive = 1");
 
 
-	// Count the number of user/rows returned by query 
-	$count = mysqli_num_rows($categoryList);
-	if ($count > 0) {
-	$categories = array();
-	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
-		array_push( $categories, $row );
-	 }
+// function showCategories1(){
+//  	 global $mysqli;
+// 	 $categoryList = mysqli_query($mysqli, "SELECT * FROM categories WHERE isActive = 1");
 
-	 return $categories;
-	}
-}
+
+// 	// Count the number of user/rows returned by query 
+// 	$count = mysqli_num_rows($categoryList);
+// 	if ($count > 0) {
+// 	$categories = array();
+// 	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
+// 		array_push( $categories, $row );
+// 	 }
+
+// 	 return $categories;
+// 	}
+// }
 
 function showBidders(){
 	global $mysqli;
@@ -56,22 +74,7 @@ function showBidders(){
 }
 
 
-function showNewCategories(){
- 	 global $mysqli;
-	 $categoryList = mysqli_query($mysqli, "SELECT * FROM categories WHERE isActive = 1");
 
-
-	// Count the number of user/rows returned by query 
-	$count = mysqli_num_rows($categoryList);
-	if ($count > 0) {
-	$categories = array();
-	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
-		array_push( $categories, $row );
-	 }
-
-	 return $categories;
-	}
-}
 
 // $d = showNewCategories();
 // var_dump($d);

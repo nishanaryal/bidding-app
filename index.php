@@ -25,24 +25,14 @@ include_once("func.php");
 	</head>
 	
 	<body class="blue-skin">
-		<!-- ============================================================== -->
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- ============================================================== -->
-		<div id="preloader"><div class="preloader"><span></span><span></span></div></div>
-		
-		<!-- ============================================================== -->
-		<!-- Main wrapper - style you can find in pages.scss -->
-		<!-- ============================================================== -->
+		<!-- Main wrapper Starts -->
 		<div id="main-wrapper">
-		
-			<!-- ============================================================== -->
 			<!-- Top header  -->
-			<!-- ============================================================== -->
 			<!-- Start Navigation -->
 			<?php include 'includes/navigation.php'; ?>
 			<!-- End Navigation -->
 			<div class="clearfix"></div>
-			<!-- Top header  -->
+			<!-- End of Top header  -->
 			
 			<!--  Hero Banner  Start -->
 			<div class="image-cover hero-banner" style="background:url(assets/img/banner-main.jpg) no-repeat;" data-overlay="6">

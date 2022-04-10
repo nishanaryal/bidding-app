@@ -15,19 +15,19 @@ $queryData = mysqli_query($mysqli,"SELECT * FROM categories WHERE isActive = 1")
 				<?php $c = showNewCategories(); 
 					foreach ($c as $data): ?>
 						<div class="Reveal-cats-box">
-					<a href="category.php?id=<?php echo $data['categoryid']; ?>" class="Reveal-category-box">
-						<div class="category-desc">
-							<div class="category-icon">
-								<img src="upload/icons/<?php echo $data['icon_image']; ?>" style="height:80px;width:80px;display: block;margin-left: auto;margin-right: auto; width: 50%;">
-							</div>
+							<a href="category.php?id=<?php echo $data['categoryid']; ?>" class="Reveal-category-box">
+								<div class="category-desc">
+									<div class="category-icon">
+										<img src="upload/icons/<?php echo $data['icon_image']; ?>" style="height:80px;width:80px;display: block;margin-left: auto;margin-right: auto; width: 50%;">
+									</div>
 
-							<div class="Reveal-category-detail category-desc-text">
-								<h4><?php echo $data['displayTitle']; ?></h4>
-								<p><?php countCategoryListing1(1); ?> View Listings</p>
-							</div>
+									<div class="Reveal-category-detail category-desc-text">
+										<h4><?php echo $data['displayTitle']; ?></h4>
+										<p> View Listings</p>
+									</div>
+								</div>
+							</a>    
 						</div>
-					</a>    
-				</div>
 					<?php endforeach; ?>
 			
 
