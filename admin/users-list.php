@@ -28,9 +28,6 @@ $users = mysqli_query($mysqli,"SELECT * FROM user");
 
 		<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
-
-
-
 		<!-- JS Cropper  -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -51,28 +48,20 @@ $users = mysqli_query($mysqli,"SELECT * FROM user");
 	</head>
 	
 	<body class="red-skin">
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- <div id="preloader"><div class="preloader"><span></span><span></span></div></div> -->
-		
-
-		<!-- Main wrapper - style you can find in pages.scss -->
+		<!-- Main wrapper -->
 		<div id="main-wrapper">
 
-			<!-- Start Navigation -->
-			<?php include('../includes/navigation.php') ?>
-			<!-- End Navigation -->
+			<?php include('../admin/includes/navigation.php') ?>
+			
 			<div class="clearfix"></div>
-			<!-- ============================================================== -->
 			<!-- Top header  -->
 		
 			
-			<!-- ============================ Dashboard Start ================================== -->
+			<!-- Dashboard Start -->
 			<section class="gray">
 				<div class="container">
 					
 					<div class="row">
-						
-						
 						<div class="col-lg-3 col-md-4 col-sm-12">
 							<?php include('../includes/dashboard-admin.php');	?>
 						</div>
@@ -101,17 +90,17 @@ $users = mysqli_query($mysqli,"SELECT * FROM user");
 											<tr>
 											<td><?php echo $listing['userid']; ?></td>
 											<td>
-												<a href="#"><img src="upload/profile/<?php echo $listing['image']; ?>" alt="<?php echo $listing['name']; ?>" heigt="30" title="<?php echo $listing['name']; ?>"></a>
+												<a href="#"><img src="../upload/profile/<?php echo $listing['user_photo']; ?>" alt="<?php echo $listing['name']; ?>" heigt="30" title="<?php echo $listing['name']; ?>"></a>
 
 											</td>
 											<td><?php echo $listing['name']; ?></td>
 											<td><?php echo $listing['username']; ?></td>
 											<td><?php echo $listing['email']; ?></td>
 											<td><?php echo $listing['phone']; ?></td>
-											<td><?php echo $listing['user_type']; ?></td>
+											<td><?php echo $listing['user_role']; ?></td>
 											<td>
-												<a href="users-edit.php" class="btn btn-sm btn-primary">
-													<i class="fa fa-edit"></i>Edit
+												<a href="" class="btn btn-sm btn-primary">
+													<i class="fa fa-edit"></i> Edit
 												</a>
 										</tr>
 

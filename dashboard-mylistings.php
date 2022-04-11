@@ -5,7 +5,7 @@ include_once("functions.php");
 include_once("func.php");
 
 $username = $_SESSION["email"];
-$UserID = $_SESSION["userid"];
+$userID = $_SESSION["userid"];
 $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
 $user_type = $_SESSION["user_type"];
@@ -13,7 +13,7 @@ $user_type = $_SESSION["user_type"];
 // $orgSlug = (string)$_GET['name'];
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
 
-$queryData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE userid = '$UserID'");
+$queryData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE userid = '$userID'");
 ?>
 
 <!DOCTYPE html>
@@ -53,43 +53,30 @@ $queryData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE userid 
 	</head>
 	
 	<body class="red-skin">
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- <div id="preloader"><div class="preloader"><span></span><span></span></div></div> -->
-		
-
-		<!-- Main wrapper - style you can find in pages.scss -->
+		<!-- Main wrapper -->
 		<div id="main-wrapper">
 
 			<!-- Start Navigation -->
 			<?php include('includes/navigation.php') ?>
 			<!-- End Navigation -->
 			<div class="clearfix"></div>
-			<!-- ============================================================== -->
 			<!-- Top header  -->
 		
 			
-			<!-- ============================ Dashboard Start ================================== -->
+			<!-- Dashboard Start -->
 			<section class="gray">
 				<div class="container">
 					
-					<div class="row">
-						
-						
+					<div class="row">						
 						<div class="col-lg-3 col-md-4 col-sm-12">
-							<?php while($user = mysqli_fetch_array($userData))
-							{ 
-								include('includes/dashboard-UserProfileMenu.php');
-							} 
-							?>
+							<?php include('includes/dashboard-UserProfileMenu.php'); ?>
 						</div>
-						
 						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
 							<div class="Reveal-gravity-list mt-0">
 									<h4>Business Listing</h4>
 									<ul>
-
 										<?php while($listing = mysqli_fetch_array($queryData))
 										{ ?>	
 										<li>
@@ -104,8 +91,7 @@ $queryData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE userid 
 												</div>
 											</div>
 											<div class="buttons-to-right">
-												
-												<a href="businesscontact.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-pencil"></i> Modify Details</a>
+												<!-- <a href="businesscontact.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-pencil"></i> Modify Details</a> -->
 												<a href="dashboard-exhibitor-products.php?name=<?php echo $listing['slug']; ?>&exhibitorID=<?php echo $listing['exhibitorid']; ?>" class="button gray"><i class="ti-check"></i> Manage Products</a>
 												<a href="listing.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-book"></i> View</a>
 											</div>

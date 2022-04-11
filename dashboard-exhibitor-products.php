@@ -5,7 +5,7 @@ include_once("functions.php");
 include_once("func.php");
 
 $username = $_SESSION["email"];
-$UserID = $_SESSION["userid"];
+$userID = $_SESSION["userid"];
 $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
 $user_type = $_SESSION["user_type"];
@@ -13,7 +13,7 @@ $user_type = $_SESSION["user_type"];
 $orgSlug = (string)$_GET['name'];
 $exhibitorID = (string)$_GET['exhibitorID'];
 
-$userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
+// $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
 
 $exhibitorData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE slug = '$orgSlug'");
 
@@ -81,11 +81,7 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 						
 						
 						<div class="col-lg-3 col-md-4 col-sm-12">
-							<?php while($user = mysqli_fetch_array($userData))
-							{ 
-								include('includes/dashboard-UserProfileMenu.php');
-							} 
-							?>
+							<?php include('includes/dashboard-UserProfileMenu.php');	?>
 						</div>
 						
 						
@@ -121,7 +117,7 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 
 												<a href="product-edit.php?pid=<?php echo $listing['productid']; ?>" class="button gray"><i class="ti-pencil"></i> Edit</a>
 												
-												<a href="view-product.php?name=<?php echo $listing['slug']; ?>" class="button gray"><i class="ti-book"></i> View</a>
+												<a href="products.php?name=<?php echo $listing['slug']; ?>&&bid=<?php echo $listing['productid']; ?>" target="_blank" class="button gray"><i class="ti-book"></i> View</a>
 											</div>
 										</li>
 										<?php

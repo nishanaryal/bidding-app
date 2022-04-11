@@ -48,40 +48,29 @@ $users = mysqli_query($mysqli,"SELECT * FROM products");
 	</head>
 	
 	<body class="red-skin">
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- <div id="preloader"><div class="preloader"><span></span><span></span></div></div> -->
-		
-
-		<!-- Main wrapper - style you can find in pages.scss -->
+		<!-- Main wrapper -->
 		<div id="main-wrapper">
 
-			<!-- Start Navigation -->
-			<?php include('../includes/navigation.php') ?>
-			<!-- End Navigation -->
+			
+			<?php include('../admin/includes/navigation.php') ?>
+			
 			<div class="clearfix"></div>
-			<!-- ============================================================== -->
 			<!-- Top header  -->
 		
 			
-			<!-- ============================ Dashboard Start ================================== -->
+			<!-- Dashboard Start -->
 			<section class="gray">
 				<div class="container">
 					
 					<div class="row">
-						
-						
 						<div class="col-lg-3 col-md-4 col-sm-12">
 							<?php include('../includes/dashboard-admin.php');	?>
 						</div>
 						
-						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
 							<div class="Reveal-gravity-list mt-0">
-									<h4>Manage Products
-										<!-- <small>Showing <?php echo sizeof($users); ?> products</small> -->
-											
-										</h4>
+									<h4>Manage Products</h4>
 
 									<table class="table table-bordered table-responsive" id="DataTable">
 										<thead>

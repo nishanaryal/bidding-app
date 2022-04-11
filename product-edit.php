@@ -5,7 +5,7 @@ include_once("functions.php");
 include_once("func.php");
 
 $username = $_SESSION["email"];
-$UserID = $_SESSION["userid"];
+$userID = $_SESSION["userid"];
 $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
 // $user_fullname = $_SESSION["user_fullName"];
@@ -93,20 +93,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     try {
 
-	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name', base_price = '$base_price', photo = '$photo', slug = '$slug',
+	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name', base_price = '$base_price',
                                         shortdescription = '$shortdescription', description = '$description', 
-                                        features = 'features', additional_info = '$additional_info', exhibitorid = '$exhibitorid',
-                                        categoryid = '$categoryid', isActive = '$isActive', isFeatured = '$isFeatured', category
-                                        auction_start = '$auction_start', auction_end = '$auction_end'");
+                                        features = 'features', additional_info = '$additional_info',
+                                        categoryid = '$categoryid', isActive = '$isActive',
+                                        isFeatured = '$isFeatured', auction_start = '$auction_start',
+                                        auction_end = '$auction_end' WHERE productid='$pid'");
 
         if($updateData){
             echo "<script>alert('Update Successfully');</script>";
-            header("Location:dashboard-exhibitor-products.php?name=kathmandu-automobile-centre&exhibitorID=2");
+            header("Location:dashboard-mylistings.php");
         }
-        if(!$updateData){
-            echo mysqli_error();
-            die('Error Occured: '.mysqli_error());
-        }
+        // if(!$updateData){
+        //     echo mysqli_error();
+        //     die('Error Occured: '.mysqli_error());
+        // }
 	} 
     catch (Exception $e)
     {
@@ -216,14 +217,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 <label>What best Describes this? (Category)</label>
                                                 <select name="categoryid" required autocomplete="off"
                                                 class="form-control combobox" id="categoryid">
-                                                <!-- <option value="">(Select from List)</option> -->
-                                                <option value="1" >Car</option>
-                                                <option value="2">Sports Bike</option>
-                                                <option value="3">Mountain Bike</option>
-                                                <option value="4">SUV</option>
-                                                <option value="5">Pick Up Truck</option>
-                                                <option value="6">Van</option>
-                                                <option value="Hatchback">Hatchback</option>
+
+                                                <?php $cat = showNewCategories(); 
+                                                foreach ($cat as $category): ?>
+                                                    <option value="<?php echo $category['categoryid']; ?>" ><?php echo $category['displayTitle']; ?></option>
+                                                <?php endforeach; ?>
                                                 </select>
                                             </div>
 
@@ -272,15 +270,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                             </div>
 
                                              <div class="form-group col-md-6 col-md-6">
-                                                <label>Is Active</label>
-                                                <select name="isActive" required autocomplete="off" class="form-control combobox" id="isActive">
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
+                                                <label>Allow Bidding</label>
+                                                <select name="allowBidding" required autocomplete="off" class="form-control combobox" id="allowBidding">
+                                                <option value="1">Yes</option>
+                                                <option value="2">NO</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6 col-md-6">
                                                 <label>Is Featured</label>
                                                 <select name="isFeatured" required autocomplete="off" class="form-control combobox" id="isFeatured">
+                                                <option value="1">Active</option>
+                                                <option value="2">Inactive</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-md-6">
+                                                <label>Is Active</label>
+                                                <select name="isActive" required autocomplete="off" class="form-control combobox" id="isActive">
                                                 <option value="1">Active</option>
                                                 <option value="2">Inactive</option>
                                                 </select>

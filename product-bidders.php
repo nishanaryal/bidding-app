@@ -5,7 +5,7 @@ include_once("functions.php");
 include_once("func.php");
 
 $username = $_SESSION["email"];
-$UserID = $_SESSION["userid"];
+$userID = $_SESSION["userid"];
 $user = $_SESSION["username"];
 $user_image = $_SESSION["user_image"];
 $user_type = $_SESSION["user_type"];
@@ -14,7 +14,9 @@ $user_type = $_SESSION["user_type"];
 $pid = (string)$_GET['pid'];
 // $exhibitorID = (string)$_GET['exhibitorID'];
 
-$userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
+// $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
+
+$productDetails = mysqli_query($mysqli,"SELECT *, DATE_FORMAT(auction_start, '%Y-%m-%dT%H:%i') AS startDate, DATE_FORMAT(auction_end, '%Y-%m-%dT%H:%i') AS endDate FROM products WHERE productid = '$pid'");
 
 // $exhibitorData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE slug = '$orgSlug'");
 
@@ -88,18 +90,37 @@ $bidders = mysqli_query($mysqli,"SELECT * FROM bidders WHERE product_id = '$pid'
 						
 						
 						<div class="col-lg-3 col-md-4 col-sm-12">
-							<?php while($user = mysqli_fetch_array($userData))
-							{ 
-								include('includes/dashboard-UserProfileMenu.php');
-							} 
-							?>
+							<?php include('includes/dashboard-UserProfileMenu.php');	?>
 						</div>
 						
 						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
+
+							
+						<?php while($product = mysqli_fetch_array($productDetails))
+                    	{ ?>
+							<div class="jumbotron">
+								<h4><b>Product Name: </b> <?php echo $product['name']; ?> </h4>
+								<h4><b>Bidding Start: </b> <?php echo $product['startDate']; ?> </h4>
+								<h4><b>Biding End: </b> <?php echo $product['endDate']; ?> </h4>
+								
+								<h4><b>Allow Bidding </b>
+									<?php if($product['allowBidding'] == "yes"){
+										echo "<span class='badge badge-primary'>Yes</span>";
+									}
+									else{
+										echo "<span class='badge badge-danger'>No</span>";
+									}  ?>
+								</h4>
+
+
+							</div>
+							<?php  } ?>
+
+
 							<div class="mt-0">
-									<h3>Products for Auction</h3>
+									<h3>Bidders List</h3>
 									
 									<button style="margin-bottom: 30px;" class="btn btn-primary" onclick="history.back()">Go Back</button>
 

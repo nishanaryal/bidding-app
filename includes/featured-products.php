@@ -1,5 +1,5 @@
 <?php 
-$featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeatured = 1");
+$featuredAuctions = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeatured = 1");
  ?>
 <!-- FeaturedProducts -->
 <section class="gray">
@@ -16,13 +16,13 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
 
         <div class="row">
         <!--  Single Listing -->
-                                <?php while($featuredProduct = mysqli_fetch_array($featuredProducts))
+                                <?php while($featuredProd = mysqli_fetch_array($featuredAuctions))
                                 { ?>
                                     <?php
 
                                     $datenow = date("Y-m-d H:i:s");
-                                    $auction_startDate = $featuredProduct['auction_start'];
-                                    $auction_endDate = $featuredProduct['auction_end'];
+                                    $auction_startDate = $featuredProd['auction_start'];
+                                    $auction_endDate = $featuredProd['auction_end'];
                                     $bidBtnTxt = '';
                                     $BidMsg = "";
                                     $biddingTime = "";
@@ -47,49 +47,47 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
 
                                     ?>
 
-                                    
-
-
+                                
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="Reveal-verticle-list listing-shot">
                                             <?php echo $BidMsg; ?>
 
                                             <div class="Reveal-signle-item">
-                                                <a class="listing-item" href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>">
+                                                <a class="listing-item" href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>">
                                                     <div class="listing-items">
                                                         <div class="listing-shot-img">
-                                                            <img src="upload/products/<?php echo $featuredProduct['photo']; ?>" class="img-responsive" alt="" />
+                                                            <img src="upload/products/<?php echo $featuredProd['photo']; ?>" class="img-responsive" alt="" />
                                                         </div>
                                                     </div>
                                                 </a>
                                                 <div class="Reveal-verticle-listing-caption">
-                                                    <a href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>" class="like-listing"></a>
+                                                    <a href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>" class="like-listing"></a>
 
                                                     <div class="Reveal-listing-shot-caption">
-                                                        <h4><a href="products.php?name=<?php echo $featuredProduct['slug']; ?>&bid=<?php echo $featuredProduct['productid']; ?>"><?php echo $featuredProduct['name']; ?></a> <span class="approve-listing"><i class="fa fa-check"></i></span></h4>
+                                                        <h4><a href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>"><?php echo $featuredProd['name']; ?></a></h4>
 
                                                         <div class="property_meta"> 
                                                           <div class="list-fx-features">
                                                                 <div class="listing-card-info-icon">
-                                                                    <span class="inc-fleat inc-check"><b>Starting from </b>Rs. <?php echo $featuredProduct['base_price']; ?></span>
+                                                                    <span class="inc-fleat inc-check"><b>Starting from </b>Rs. <?php echo $featuredProd['base_price']; ?></span>
                                                                     <?php echo $biddingTime; ?>
                                                                 </div>
                                                             </div>  
                                                         </div>
 
-                                                        <?php if($featuredProduct['allowBidding'] == "yes") { ?>
-                                                            <a href="javascript:bid('<?php echo $featuredProduct['slug']; ?>', <?php echo $featuredProduct['productid']; ?>)" class="btn btn-primary"><?php echo $bidBtnTxt; ?>
+                                                        <?php if($featuredProd['allowBidding'] == "yes") { ?>
+                                                            <a href="javascript:bid('<?php echo $featuredProd['slug']; ?>', <?php echo $featuredProd['productid']; ?>)" class="btn btn-primary"><?php echo $bidBtnTxt; ?>
                                                             </a>
                                                         <?php } ?>
 
 
                                                         
-                                                        <!-- <a href="products.php?name=<?php echo $featuredProduct['slug']; ?>" class="btn btn-primary">READ MORE
+                                                        <!-- <a href="products.php?name=<?php echo $featuredProd['slug']; ?>" class="btn btn-primary">READ MORE
                                                         </a> -->
 
                                                         
                                                         <!-- <p class="Reveal-short-descr">
-                                                            <?php echo substr($featuredProduct['shortdescription'], 0, 160); ?></p> -->
+                                                            <?php echo substr($featuredProd['shortdescription'], 0, 160); ?></p> -->
                                                         
                                                     </div>
                                                 </div>

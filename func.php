@@ -1,5 +1,6 @@
 <?php 
-include_once("db-config.php"); 
+include_once("db-config.php");
+// $userID = $_SESSION["userid"];
 
 function showNewCategories(){
 	global $mysqli;
@@ -14,6 +15,22 @@ function showNewCategories(){
    }
 
    return $categories;
+  }
+}
+
+
+function getLoggedInUserDetails(){
+	global $mysqli;
+   $userDetails = mysqli_query($mysqli, "SELECT * FROM user WHERE userid = '$userID'");
+
+  // Count the number of user/rows returned by query 
+  $count = mysqli_num_rows($userDetails);
+  if ($count > 0) {
+  $userDetail = array();
+  while( $row = mysqli_fetch_array( $userDetails, MYSQLI_ASSOC ) ) {
+	  array_push( $userDetail, $row );
+   }
+   return $userDetail;
   }
 }
 

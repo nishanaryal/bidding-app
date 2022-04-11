@@ -10,18 +10,12 @@ $exhibitorID;
 //$queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
 $featuredExhibitors = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE slug = '$orgSlug'");
 
-// while($exhibitor = mysqli_fetch_array($featuredExhibitors))
-// {
-// 	$exhibitorID = intval($exhibitor['exhibitorid']);
-// }
-
 $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE exhibitorid = 1");
-
 ?>
 
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en-GB">
 <head>
 	<?php include 'includes/header.php';?>  
 
@@ -30,32 +24,17 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE exhibitor
 </head>
 
 <body class="blue-skin">
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
-	<div id="preloader"><div class="preloader"><span></span><span></span></div></div>
-
-	<!-- ============================================================== -->
-	<!-- Main wrapper - style you can find in pages.scss -->
-	<!-- ============================================================== -->
-
-
+	<!-- Main wrapper -->
 	<div id="main-wrapper">
-		
-		<!-- ============================================================== -->
 		<!-- Top header  -->
-		<!-- ============================================================== -->
 		<!-- Start Navigation -->
 		<?php include 'includes/navigation.php'; ?>
 		<!-- End Navigation -->
 		<div class="clearfix"></div>
-		<!-- ============================================================== -->
 		<!-- Top header  -->
-		<!-- ============================================================== -->
 
 		<?php while($featuredExhibitor = mysqli_fetch_array($featuredExhibitors))
 		{ ?>	
-			
 			<!-- Start Banner  -->
 			<section class="page-title-banner" id="exhibitorBanner" style="/*background-image:url(assets/img/banner-3.jpg)*/;padding:10px;background:radial-gradient(circle at center, #273240 , #fafafa)">
 				<div class="container">
@@ -142,103 +121,13 @@ $featuredProducts = mysqli_query($mysqli,"SELECT * FROM products WHERE exhibitor
 								} ?>		
 							</div>
 							<!-- FeaturedProducts -->
-<!-- FeaturedCategories -->
-<?php include('includes/featuredCategoriesGrid.php'); ?>
-		<!-- ./FeaturedCategopories -->
+
+							<!-- FeaturedCategories -->
+							<?php include('includes/featuredCategoriesGrid.php'); ?>
+							<!-- ./FeaturedCategopories -->
 
 							
-							<div class="row">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-
-									<div class="page-sidebar">
-										<!-- Some Imp Boxes -->
-										<div class="imp-boxes">
-											<div class="imp-boxes-single">
-												<div class="imp-boxes-single-icon"><img src="assets/img/phone.svg" width="25" alt="" /></div>
-												<div class="imp-boxes-single-content"><?php echo $featuredExhibitor['orgphone']; ?></div>
-											</div>
-											<div class="imp-boxes-single">
-												<div class="imp-boxes-single-icon"><img src="assets/img/mail.svg" width="25" alt="" /></div>
-												<div class="imp-boxes-single-content"><?php echo $featuredExhibitor['orgemail']; ?></div>
-											</div>
-											<div class="imp-boxes-single">
-												<div class="imp-boxes-single-icon"><img src="assets/img/add.svg" width="25" alt="" /></div>
-												<div class="imp-boxes-single-content"><?php echo $featuredExhibitor['fulladdress']; ?></div>
-											</div>
-											<div class="imp-boxes-single">
-												<div class="imp-boxes-single-icon"><img src="assets/img/website.png" width="25" alt="" /></div>
-												<div class="imp-boxes-single-content"><a href="<?php echo $featuredExhibitor['website']; ?>" target="_blank"><?php echo $featuredExhibitor['website']; ?></a></div>
-											</div>
-
-											<div class="imp-boxes-single">
-												<div class="imp-boxes-single-icon"><img src="assets/img/share.svg" width="25" alt="" /></div>
-												<div class="imp-boxes-single-content">
-													<ul>
-														<li><a href="#"><i class="ti-facebook"></i></a></li>
-														<li><a href="#"><i class="ti-twitter"></i></a></li>
-														<li><a href="#"><i class="ti-google"></i></a></li>
-														<li><a href="#"><i class="ti-instagram"></i></a></li>
-														<li><a href="#"><i class="ti-linkedin"></i></a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- Some Imp Boxes -->
-
-								</div>
-
-
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="Reveal-side-widget">
-										<div class="Reveal-Reveal-side-widget-header dark default">
-											<div class="Reveal-thumb-details">
-												<h4>Opening Time</h4>
-												<span>8:00 AM To 6:00 PM</span>
-											</div>
-											<div class="opening-status">Open</div>
-											<div class="clearfix"></div>
-										</div>
-
-										<div class="Reveal-other-body">
-											<ul class="listing-hour-day">
-												<li>
-													<span class="listing-hour-day">Monday</span>
-													<span class="listing-hour-time">10:00 - 6:00</span>
-												</li>
-												<li>
-													<span class="listing-hour-day">Tuesday</span>
-													<span class="listing-hour-time">10:00 - 6:00</span>
-												</li>
-												<li>
-													<span class="listing-hour-day">Wednesday</span>
-													<span class="listing-hour-time">10:00 - 6:00</span>
-												</li>
-												<li class="active">
-													<span class="listing-hour-day">Thursday</span>
-													<span class="listing-hour-time">10:00 - 4:00</span>
-												</li>
-												<li>
-													<span class="listing-hour-day">Friday</span>
-													<span class="listing-hour-time">10:00 - 6:00</span>
-												</li>
-												<li>
-													<span class="listing-hour-day">Saturday</span>
-													<span class="listing-hour-time">Closed</span>
-												</li>
-												<li>
-													<span class="listing-hour-day">Sunday</span>
-													<span class="listing-hour-time">10:00 - 6:00</span>
-												</li>
-
-											</ul>
-										</div>
-
-									</div>
-								</div>
-
-
-							</div>
+							
 						</div>
 
 						

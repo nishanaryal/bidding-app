@@ -15,8 +15,6 @@ $user_type = $_SESSION["user_type"];
 
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE userid = '$userID'");
 
-
-
 $userProfile = mysqli_query($mysqli,"SELECT * FROM user WHERE username = '$userID'");
    
 while($profileData = mysqli_fetch_array($userProfile));
