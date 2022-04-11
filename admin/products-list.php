@@ -27,31 +27,11 @@ $users = mysqli_query($mysqli,"SELECT * FROM products");
 		<link href="../assets/css/colors.css" rel="stylesheet">
 
 		<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
-
-
-		<!-- JS Cropper  -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->        
-	<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-	<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
-	<script src="https://unpkg.com/dropzone"></script>
-	<script src="https://unpkg.com/cropperjs"></script>
-	<!-- ./JS Cropper -->
-
-
-	<!-- JS Cropper CSS -->
-	<link rel="stylesheet" type="text/css" href="../assets/css/js-cropper.css">
-	<!-- ./JS Cropper CSS -->
 	</head>
 	
 	<body class="red-skin">
 		<!-- Main wrapper -->
 		<div id="main-wrapper">
-
-			
 			<?php include('../admin/includes/navigation.php') ?>
 			
 			<div class="clearfix"></div>
@@ -75,7 +55,7 @@ $users = mysqli_query($mysqli,"SELECT * FROM products");
 									<table class="table table-bordered table-responsive" id="DataTable">
 										<thead>
 											<tr>
-												<th>S.No</th>
+												<th>PID</th>
 												<th>Photo</th>
 												<th>Product Name</th>
 												<th>IsActive</th>
@@ -92,9 +72,7 @@ $users = mysqli_query($mysqli,"SELECT * FROM products");
 											<tr>
 											<td><?php echo $listing['productid']; ?></td>
 											<td>
-												<a href="#"><img src="../upload/products/<?php echo $listing['photo']; ?>" alt="<?php echo $listing['name']; ?>" heigt="25" title="<?php echo $listing['name']; ?>"></a>
-
-											</td>
+											<img src="../upload/products/<?php echo $listing['photo']; ?>" alt="<?php echo $listing['name']; ?>" height="50" title="<?php echo $listing['name']; ?>" /></td>
 											<td><?php echo $listing['name']; ?></td>
 											<td><?php echo $listing['isActive']; ?></td>
 											<td><?php echo $listing['isFeatured']; ?></td>

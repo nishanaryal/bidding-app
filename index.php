@@ -5,6 +5,11 @@ include_once("functions.php");
 include_once("func.php");
 
 
+$username = $_SESSION["email"];
+$userID = $_SESSION["userid"];
+$user = $_SESSION["username"];
+
+
 // if (session_status() === PHP_SESSION_NONE) {
 //     session_start();
 // }
