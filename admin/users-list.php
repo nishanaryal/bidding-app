@@ -66,7 +66,6 @@ $users = mysqli_query($mysqli,"SELECT * FROM user");
 							<?php include('../includes/dashboard-admin.php');	?>
 						</div>
 						
-						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
 							<div class="Reveal-gravity-list mt-0">
@@ -99,9 +98,15 @@ $users = mysqli_query($mysqli,"SELECT * FROM user");
 											<td><?php echo $listing['phone']; ?></td>
 											<td><?php echo $listing['user_role']; ?></td>
 											<td>
-												<a href="" class="btn btn-sm btn-primary">
-													<i class="fa fa-edit"></i> Edit
-												</a>
+												<div class="btn-group mr-2" role="group">
+													<a href="users-edit.php?refID=<?php echo $listing['userid']; ?>" class="btn btn-sm btn-info">
+														<i class="fa fa-edit"></i>
+													</a>
+													<a href="javascript:deleteUser('<?php echo $listing['userid']; ?>', '<?php echo $userData['name']; ?>')" class="btn btn-sm btn-danger">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
+											</td>
 										</tr>
 
 										<?php

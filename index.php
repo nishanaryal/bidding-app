@@ -110,70 +110,12 @@ $user = $_SESSION["username"];
 			
 			<!-- ============================ Footer Start ==== -->
 			<?php include('includes/footer.php'); ?>
-			<!-- ============================ Footer End === -->
-			
-			<!-- Log In Modal -->
-			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal">
-				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
-					<div class="modal-content" id="registermodal">
-						<span class="mod-close" data-dismiss="modal"><i class="ti-close"></i></span>
-						<div class="modal-body">
-							<h4 class="modal-header-title">Log <span class="theme-cl">In</span></h4>
-							<div class="login-form">
-								<form>
-								
-									<div class="form-group">
-										<label>User Name</label>
-										<div class="input-with-icon gray">
-											<input type="text" class="form-control" placeholder="Username">
-											<i class="ti-user"></i>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label>Password</label>
-										<div class="input-with-icon gray">
-											<input type="password" class="form-control" placeholder="*******">
-											<i class="ti-unlock"></i>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<button type="submit" class="btn btn-md full-width pop-login">Login</button>
-									</div>
-								
-								</form>
-							</div>
-							<div class="modal-divider"><span>Or login via</span></div>
-							<div class="social-login mb-3">
-								<ul>
-									<li><a href="#" class="btn fb"><i class="ti-facebook"></i></a></li>
-									<li><a href="#" class="btn google"><i class="ti-google"></i></a></li>
-									<li><a href="#" class="btn twitter"><i class="ti-twitter"></i></a></li>
-								</ul>
-							</div>
-							<div class="modat-foot">
-								<div class="md-left">Have't Account? <a href="register.html" class="theme-cl">Sign Up</a></div>
-								<div class="md-right"><a href="#" class="theme-cl">Forget Password?</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Modal -->
-			
-			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-
-			
+			<!-- Footer End -->
 
 		</div>
-		<!-- ============================================================== -->
 		<!-- End Wrapper -->
-		<!-- ============================================================== -->
 
-		<!-- ============================================================== -->
 		<!-- All Jquery -->
-		<!-- ============================================================== -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/popper.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
@@ -190,10 +132,8 @@ $user = $_SESSION["username"];
 		 
 		<script src="assets/js/custom.js"></script>
 		<script src="assets/js/auction.js"></script>
-		<!-- ============================================================== -->
+		
 		<!-- This page plugins -->
-		<!-- ============================================================== -->
-
 		<script src="assets/js/jquery.countdown.min.js"></script>
 
 

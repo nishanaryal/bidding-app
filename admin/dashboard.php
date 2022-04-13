@@ -159,9 +159,15 @@ $numBidding = $biddingRow['totalBidders'];
 											<td><?php echo $userData['phone']; ?></td>
 											<td><?php echo $userData['user_role']; ?></td>
 											<td>
-												<a href="" class="btn btn-sm btn-primary">
-													<i class="fa fa-edit"></i> Edit
-												</a>
+												<div class="btn-group mr-2" role="group">
+													<a href="users-edit.php?refID=<?php echo $userData['userid']; ?>" class="btn btn-sm btn-info">
+														<i class="fa fa-edit"></i>
+													</a>
+
+													<a href="javascript:deleteUser('<?php echo $userData['userid']; ?>', '<?php echo $userData['name']; ?>')" class="btn btn-sm btn-danger">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
 										</tr>
 
 										<?php
@@ -207,12 +213,14 @@ $numBidding = $biddingRow['totalBidders'];
 											<td><?php echo $product['auction_start']; ?></td>
 											<td><?php echo $product['auction_end']; ?></td>
 											<td>
-												<a href="products-edit.php?id=<?php echo $product['productid']; ?>" class="btn btn-sm btn-info">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="products-edit.php?id=<?php echo $product['productid']; ?>" class="btn btn-sm btn-danger">
-													<i class="fa fa-trash"></i>
-												</a>
+												<div class="btn-group mr-2" role="group">
+													<a href="products-edit.php?pid=<?php echo $product['productid']; ?>" class="btn btn-sm btn-info">
+														<i class="fa fa-edit"></i>
+													</a>
+													<a href="javascript:deleteProduct('<?php echo $product['productid']; ?>', '<?php echo $product['name']; ?>')" class="btn btn-sm btn-danger">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
 											</td>
 										</tr>
 
@@ -330,6 +338,11 @@ $numBidding = $biddingRow['totalBidders'];
 			font-weight: 600;
 		}
 	</style>
+
+
+
+
+
 
 	</body>
 </html>

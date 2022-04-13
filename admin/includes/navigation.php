@@ -22,10 +22,10 @@ $user = $_SESSION["username"];
 						</div>
 						<div class="nav-menus-wrapper" style="transition-property: none;margin-left: 20%;">
 							<ul class="nav-menu">
-								<li><a href="index.php">Home</a></li>  
-								<li><a href="products-list.php">Manage Products</a></li>
-                                <li><a href="users-list.php">Manage Users</a></li>
-                                <li><a href="bidders-list.php">Manage Bidders</a></li>
+								<li><a href="../admin/dashboard.php">Home</a></li>  
+								<li><a href="../admin/products-list.php">Manage Products</a></li>
+                                <li><a href="../admin/users-list.php">Manage Users</a></li>
+                                <li><a href="../admin/bidders-list.php">Manage Bidders</a></li>
 								
 							</ul>
 
@@ -49,7 +49,7 @@ $user = $_SESSION["username"];
 												echo '<a href="dashboard-photo.php?name=marsden-park-home"><i class="ti-layers-alt"></i>Manage Photo</a>';
 												echo '<a href="dashboard-mylistings.php"><i class="ti-layers-alt"></i>My Listings</a>'
 											?> -->
-											<a class="active" href="logout.php"><i class="ti-unlock"></i>Logout</a>
+											<a class="active" href="../logout.php"><i class="ti-unlock"></i>Logout</a>
 										</div>
 										<?php } ?>
 									</div>

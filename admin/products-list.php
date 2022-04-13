@@ -79,12 +79,14 @@ $users = mysqli_query($mysqli,"SELECT * FROM products");
 											<td><?php echo $listing['auction_start']; ?></td>
 											<td><?php echo $listing['auction_end']; ?></td>
 											<td>
-												<a href="products-edit.php?id=<?php echo $listing['productid']; ?>" class="btn btn-sm btn-info">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="products-edit.php?id=<?php echo $listing['productid']; ?>" class="btn btn-sm btn-danger">
-													<i class="fa fa-trash"></i>
-												</a>
+												<div class="btn-group mr-2" role="group">
+													<a href="products-edit.php?pid=<?php echo $listing['productid']; ?>" class="btn btn-sm btn-info">
+														<i class="fa fa-edit"></i>
+													</a>
+													<a href="javascript:deleteProduct('<?php echo $listing['productid']; ?>', '<?php echo $listing['name']; ?>')" class="btn btn-sm btn-danger">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
 											</td>
 										</tr>
 

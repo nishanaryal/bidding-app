@@ -30,8 +30,7 @@ while($profileData = mysqli_fetch_array($userProfile));
 
 
 if(isset($_POST['update_UserProfile']))
-{
-    
+{  
     $Name=$_POST['name'];
     $Email=$_POST['email'];
     $Phone=$_POST['phone'];
@@ -58,7 +57,7 @@ if(isset($_POST['update_UserProfile']))
 ?>
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html>
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

@@ -29,4 +29,28 @@
 } );
 </script>
 
+<script type="text/javascript">
+// Delete Product
+function deleteProduct(pid, name)
+{
+  if(confirm('Are you sure you want to delete this Product: '+name+ '?'))
+  {
+    window.location='admin-func.php?delete-pid='+pid
+  }
+}
+// Delete Product
+
+// Delete User
+function deleteUser(uid, userFullName)
+{
+  if(confirm('Are you sure you want to delete this User: '+userFullName+'?'))
+  {
+    window.location='admin-func.php?delete-userid='+uid
+  }
+}
+// Delete User
+</script>
+
+
+
 
