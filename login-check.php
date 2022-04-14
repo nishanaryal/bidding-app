@@ -24,9 +24,8 @@ if (isset($_POST['member_login_submit'])) {
 	{
 		$userName = $data["username"];
 		$userID = $data["userid"];
-		$user_fullname = $data["name"];
-		$image = $data["image"];
-		$user_type = $data["user_type"];
+		$userFullname = $data["name"];
+		$userImage = $data["user_image"];
 		$user_role = $data["user_role"];
 
 
@@ -42,8 +41,8 @@ if (isset($_POST['member_login_submit'])) {
 		$_SESSION["userid"] = $userID;
 		$_SESSION["username"] = $userName;
 		$_SESSION["password"] = $password;
-		$_SESSION["user_fullname"] = $user_fullname;
-		$_SESSION["user_type"] = $user_type;
+		$_SESSION["userFullname"] = $userFullname;
+		$_SESSION["userImage"] = $userImage;
 		$_SESSION["user_role"] = $user_role;
 		$_SESSION['logged_in'] = true;
 

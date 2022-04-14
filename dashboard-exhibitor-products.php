@@ -4,16 +4,8 @@ include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
 
-$username = $_SESSION["email"];
-$userID = $_SESSION["userid"];
-$user = $_SESSION["username"];
-$user_image = $_SESSION["user_image"];
-$user_type = $_SESSION["user_type"];
-
 $orgSlug = (string)$_GET['name'];
 $exhibitorID = (string)$_GET['exhibitorID'];
-
-// $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
 
 $exhibitorData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE slug = '$orgSlug'");
 
@@ -22,7 +14,7 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 ?>
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html>
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -34,9 +26,6 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 		<link href="assets/css/styles.css" rel="stylesheet">
 		<!-- Custom Color Option -->
 		<link href="assets/css/colors.css" rel="stylesheet">
-
-
-
 
 		<!-- JS Cropper  -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
@@ -51,39 +40,28 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 
 	<!-- JS Cropper CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/js-cropper.css">
-	<!-- ./JS Cropper CSS -->
-
-
-		
+	<!-- ./JS Cropper CSS -->	
 	</head>
 	
 	<body class="red-skin">
-		<!-- Preloader - style you can find in spinners.css -->
-		<!-- <div id="preloader"><div class="preloader"><span></span><span></span></div></div> -->
-		
-
-		<!-- Main wrapper - style you can find in pages.scss -->
+		<!-- Main wrapper -->
 		<div id="main-wrapper">
 
 			<!-- Start Navigation -->
 			<?php include('includes/navigation.php') ?>
 			<!-- End Navigation -->
 			<div class="clearfix"></div>
-			<!-- ============================================================== -->
 			<!-- Top header  -->
 		
 			
-			<!-- ============================ Dashboard Start ================================== -->
+			<!--  Dashboard Start -->
 			<section class="gray">
 				<div class="container">
 					
 					<div class="row">
-						
-						
 						<div class="col-lg-3 col-md-4 col-sm-12">
 							<?php include('includes/dashboard-UserProfileMenu.php');	?>
 						</div>
-						
 						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
@@ -93,7 +71,6 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 										<i class="fa fa-plus"></i> Add New Products
 									</a>
 									<ul>
-
 										<?php while($listing = mysqli_fetch_array($exhibitorProducts))
 										{ ?>	
 										<li>
@@ -140,20 +117,35 @@ $exhibitorProducts = mysqli_query($mysqli, "SELECT * FROM products WHERE exhibit
 			<?php include('includes/call-to-action.php'); ?>
 			<!-- Call To Action End -->
 			
-			<!-- ============================ Footer Start ================================== -->
+			<!-- Footer Start -->
 			<?php include('includes/footer.php'); ?>
-			<!-- ============================ Footer End ================================== -->
-			
-			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-
-			
-
+			<!-- Footer End -->
+		
 		</div>
-		<!-- ============================================================== -->
 		<!-- End Wrapper -->
-		<!-- ============================================================== -->
 
-		<?php include('includes/dashboard-footerJS.php'); ?>
+
+
+		<!-- All Jquery -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/rangeslider.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/owl.carousel.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/jquery.counterup.min.js"></script>
+		<script src="assets/js/counterup.min.js"></script>
+		 
+		<script src="assets/js/custom.js"></script>
+		<script src="assets/js/auction.js"></script>
+		
+		<!-- This page plugins -->
+		<script src="assets/js/jquery.countdown.min.js"></script>
 
 
 

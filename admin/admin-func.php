@@ -28,6 +28,10 @@ if(isset($_GET['delete-userid']))
 // Delete User
 
 
+// Make Bidder WIN
+makeBidderWin
+// Make Bidder WIN
+
 // Update UserProfile
 if(isset($_POST['update_UserProfile']))
 {   

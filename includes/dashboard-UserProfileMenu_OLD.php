@@ -1,12 +1,5 @@
 <div class="Reveal-dashboard-navbar">
-	<?php 
-	// if(isset($user_image)){
-	// 	$userImage = "upload/profile/".$user_image;
-	// }
-	// else{
-	// 	$userImage = "assets/img/default-user.jpg";
-	// }
-
+	<?php
 	if(isset($user['user_photo'])){
 		$userImage = "upload/profile/".$user['user_photo'];
 	}

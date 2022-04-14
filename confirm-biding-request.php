@@ -7,17 +7,11 @@ include_once("func.php");
 $username = $_SESSION["email"];
 $UserID = $_SESSION["userid"];
 
-$user = $_SESSION["username"];
-$user_image = $_SESSION["user_image"];
-$user_type = $_SESSION["user_type"];
-
 $bid = $_GET['bid'];
 $pid = $_GET['pid'];
 
 
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
-
-// $updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin = 1 WHERE bid_id = '$bid'");
 
 $makeProductInactive = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $pid");
 
@@ -36,61 +30,72 @@ JOIN bidders
 JOIN user
   ON user.userid = bidders.user_id");
 
-    
-$updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin='1' WHERE bid='$bid'");
-    //  $query="UPDATE user SET name='$name',email='$Email',phone='$Phone', address='$Address' where username='$username'";
-     
-    if($updateData){
-        echo "<script>alert('Update Successfully');</script>";
-        header("Location:product-bidders.php?id=".$pid);
-    }
-    if(!$updateData){
-        // echo mysqli_error();
-        // die('Error Occured: '.mysqli_error());
-    }
-    // else{
-    //     die("Couldnot update the details");
-    // }
-
-    // header("Location:product-bidders.php?pid=".$pid);
-
-
-// // Edit Products
-// if ($_SERVER["REQUEST_METHOD"] == "POST") 
-// {
-// 	$product_id = $_POST['productid'];
-// 	$user_id = $_POST['user_id'];
-// 	$isWin = $_POST['isWin'];
-
 try {
-
-	// $makeProductInactive = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $pid");
-
-	// UPDATE `bidders` SET `bid_time` = '2022-03-24 01:41:34' WHERE `bidders`.`bid_id` = 2;
+		//First reset all Winners and
+		$resetWinners = mysqli_query($mysqli,"UPDATE bidders SET isWin='0' WHERE product_id='$pid'");
 
 
-// UPDATE Product SET ProductStatus = 'Yes' WHERE ProductID = '$prodid'
-	// $markWinnerBidder = mysqli_query($mysqli,"UPDATE bidders SET isWin = 1 WHERE bid_id = '$bid'");
-	// $markWinnerBidder = mysqli_query($mysqli,"UPDATE products SET isActive = 0 WHERE productid = $getProductID");
+		$updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin='1' WHERE bid_id='$bid'"); 
+		if($updateData){
+
+			$to = 'nishankumararyal@tuicms.edu.np'; 
+			$from = 'aryalnishan@gmail.com'; 
+			$fromName = 'Bidders Nepal'; 
+			
+			$subject = "Congratulations! Your bidding has been Approved."; 
+			
+			$htmlContent = ' 
+				<html> 
+				<head> 
+					<title>Welcome to CodexWorld</title> 
+				</head> 
+				<body> 
+					<h1>Thanks you for joining with us!</h1> 
+					<table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
+						<tr> 
+							<th>Name:</th><td>CodexWorld</td> 
+						</tr> 
+						<tr style="background-color: #e0e0e0;"> 
+							<th>Email:</th><td>contact@codexworld.com</td> 
+						</tr> 
+						<tr> 
+							<th>Website:</th><td><a href="http://www.codexworld.com">www.codexworld.com</a></td> 
+						</tr> 
+					</table> 
+				</body> 
+				</html>'; 
+			
+			// Set content-type header for sending HTML email 
+			$headers = "MIME-Version: 1.0" . "\r\n"; 
+			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
+			
+			// Additional headers 
+			$headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
+			$headers .= 'Cc: nishan-aryal@outlook.com' . "\r\n"; 
+			$headers .= 'Bcc: nishan-aryal@outlook.com' . "\r\n"; 
+			
+			// Send email 
+			if(mail($to, $subject, $htmlContent, $headers)){ 
+				echo 'Email has sent successfully.'; 
+			}else{ 
+			echo 'Email sending failed.'; 
+			}
 
 
+
+			// echo "<script>alert('Update Successfully');</script>";
+			header("Location:product-bidders.php?pid=".$pid);
+		}
+		if(!$updateData){
+			echo mysqli_error();
+			die('Error Occured: '.mysqli_error());
+		}
 	} 
 catch (Exception $e)
 {
-$message = 'Unable to add new product.' + $e;
-throw new Exception( 'Unable to save details. Please try again later.',0,$e);
+	$message = 'Unable to add new product.' + $e;
+	throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 }
-
-// if(!$insertData)
-// {
-// $message = 'Couldnot save data..';
-//        echo mysqli_error();
-// }
-	//  header("Location:product-bidders.php?pid=".$pid);
-
-// } 
-
-
 
 ?>
 
@@ -190,7 +195,7 @@ throw new Exception( 'Unable to save details. Please try again later.',0,$e);
 													echo "<span class='badge badge-danger'>-</span>";
 												}  ?>
 												</td>
-												<td><?php echo $listing['biddingTime']; ?></td>
+												<td><?php echo date('D, jS M Y G:i A', strtotime($listing['biddingTime'])); ?></td>
 											</tr>
 
 											<?php

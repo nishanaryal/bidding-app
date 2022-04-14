@@ -1,4 +1,18 @@
 <?php 
+$username = isset($_SESSION["email"]) ?  $_SESSION["email"] : '';
+$userID = isset($_SESSION["userid"]) ?  $_SESSION["userid"] : '';
+$username = isset($_SESSION["username"]) ?  $_SESSION["username"] : 'Welcome';
+
+$userFullName = isset($_SESSION["userFullName"]) ? $_SESSION["userFullName"] : 'Welcome';
+
+$userImage = $_SESSION["userImage"];
+$userRole = $_SESSION["userRole"];
+
+
+?>
+
+
+<?php 
 include_once("db-config.php");
 // $userID = $_SESSION["userid"];
 
@@ -13,7 +27,6 @@ function showNewCategories(){
   while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
 	  array_push( $categories, $row );
    }
-
    return $categories;
   }
 }
@@ -21,7 +34,25 @@ function showNewCategories(){
 
 function getLoggedInUserDetails(){
 	global $mysqli;
+	global $loggedUser_FullName;
+	global $loggedUser_Username;
+	global $loggedUser_Photo;
+	global $loggedUser_Email;
+
+
    $userDetails = mysqli_query($mysqli, "SELECT * FROM user WHERE userid = '$userID'");
+
+//    $rows = mysql_query($q);
+// while($loggedUser = mysql_fetch_array($rows)) {
+//    $loggedUser_FullName = $loggedUser['name'];
+//    $loggedUser_Username = $loggedUser['username'];
+//    $loggedUser_Photo = $loggedUser['user_photo'];
+//    $loggedUser_Email = $loggedUser['email'];
+// }
+// echo $j;
+
+
+
 
   // Count the number of user/rows returned by query 
   $count = mysqli_num_rows($userDetails);
@@ -43,25 +74,6 @@ function countCategoryListing1($categoryid){
 
 	return $result;
 }
-
-
-
-// function showCategories1(){
-//  	 global $mysqli;
-// 	 $categoryList = mysqli_query($mysqli, "SELECT * FROM categories WHERE isActive = 1");
-
-
-// 	// Count the number of user/rows returned by query 
-// 	$count = mysqli_num_rows($categoryList);
-// 	if ($count > 0) {
-// 	$categories = array();
-// 	while( $row = mysqli_fetch_array( $categoryList, MYSQLI_ASSOC ) ) {
-// 		array_push( $categories, $row );
-// 	 }
-
-// 	 return $categories;
-// 	}
-// }
 
 function showBidders(){
 	global $mysqli;

@@ -17,21 +17,18 @@ if (isset($_POST['member_login_submit'])) {
 	$email = mysqli_real_escape_string($mysqli,$email);
 	$password = stripslashes($_POST['password']);
 	$password = mysqli_real_escape_string($mysqli,$password);
-	// echo $password;
-   
-	  // $email    = $_POST['email'];
-	  // $password = $_POST['password'];
   
 	  // Check if a user exists with given username & password
 	  $result = mysqli_query($mysqli, "SELECT * FROM user
-		  where email='$email' and password='$password'");
+		  WHERE email='$email' and password='$password'");
   
 	  while($data = mysqli_fetch_array($result))
 	  {
 		  $userName = $data["username"];
 		  $userID = $data["userid"];
-		  $image = $data["image"];
-		  $user_type = $data["user_type"];
+		  $userImage = $data["user_photo"];
+		  $userFullName= $data["name"];
+		  $userRole = $data["user_role"];
   
   
 	  // Count the number of user/rows returned by query 
@@ -45,8 +42,9 @@ if (isset($_POST['member_login_submit'])) {
 		  $_SESSION["email"] = $email;
 		  $_SESSION["userid"] = $userID;
 		  $_SESSION["username"] = $userName;
-		  $_SESSION["user_image"] = $image;
-		  $_SESSION["user_type"] = $user_type;
+		  $_SESSION["userImage"] = $userImage;
+		  $_SESSION["userFullName"] = $userFullName;
+		  $_SESSION["userRole"] = $userRole;
 		  $_SESSION['logged_in'] = true;
 		  header("location: index.php");
 	  } else {

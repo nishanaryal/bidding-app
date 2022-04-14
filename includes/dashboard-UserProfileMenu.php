@@ -12,7 +12,7 @@
 	// 	$userImage = "assets/img/default-user.jpg";
 	// }
 
-	if(isset($loggedUser['user_photo'])){
+	if(file_exists('upload/profile/'.$loggedUser['user_photo'])){
 		$userImage = "upload/profile/".$loggedUser['user_photo'];
 	}
 	else{

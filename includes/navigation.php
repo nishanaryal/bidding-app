@@ -1,8 +1,8 @@
-<?php error_reporting(0); ?>
+
+
+
 <?php include_once('func.php'); ?>
 <?php $loggedInUserData = mysqli_query($mysqli,"SELECT * FROM user WHERE userid = '$userID'"); ?>
-
-
 
 <div class="header header-dark">
 				<div class="container">
@@ -10,7 +10,7 @@
 						<div class="nav-header">
 							<a class="nav-brand" href="http://localhost/bidding-app/index.php">
 								<img src="assets/img/logo-dark.png" class="logo hd-992" alt="" />
-								<img src="assets/img/logo.png" class="logo sw-m" alt="" />
+								<img src="assets/img/logo.png" class="logo sw-m" alt="Bidding Nepal" title="Bidding Nepal" />
 							</a>
 							<div class="nav-toggle"></div>
 						</div>
@@ -35,12 +35,26 @@
 								<?php if (! empty($_SESSION['logged_in'])) { ?>
 								<li class="attributes">
 									<div class="btn-group account-drop">
+									<?php while($loggedUser = mysqli_fetch_array($loggedInUserData))
+										{ ?>
+										
+										<?php 
+										if (file_exists('upload/profile/'.$loggedUser['user_photo'])){
+											$userImage = 'upload/profile/'.$loggedUser['user_photo'];
+										}
+										else{
+											$userImage = 'assets/img/user.png';
+										}
+										
+										
+										// $userImage = isset($_SESSION["userImage"]) ?  'upload/profile/'.$_SESSION["userImage"] : 'assets/img/user.png'; ?>
+
+
 										<button type="button" class="btn btn-order-by-filt theme-cl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img src="assets/img/user.png" class="avater-img" alt=""><?php echo $_SESSION['username']; ?>
+											<img src="<?php echo $userImage; ?>" class="avater-img" alt=""><?php echo $loggedUser['name']; ?>
 										</button>
 
-										<?php while($loggedUser = mysqli_fetch_array($loggedInUserData))
-										{ ?>
+										
 										<div class="dropdown-menu pull-right animated flipInX">
 											<?php if($loggedUser['user_role'] == "Super Admin") 
 												echo "<a href='admin/dashboard.php'><i class='ti-user'></i>Dashboard</a>";
@@ -48,7 +62,7 @@
 
 											<?php if($loggedUser['user_role'] == "Seller" || $loggedUser['user_role'] == "General / Buyer")
 												echo '<a href="user-profile.php"><i class="ti-user"></i>Manage Profile</a>';
-												echo '<a href="dashboard-photo.php?name=marsden-park-home"><i class="ti-layers-alt"></i>Manage Photo</a>';
+												// echo '<a href="dashboard-photo.php?name=marsden-park-home"><i class="ti-layers-alt"></i>Manage Photo</a>';
 												echo '<a href="dashboard-mylistings.php"><i class="ti-layers-alt"></i>My Listings</a>'
 											?>
 												<a class="active" href="logout.php"><i class="ti-unlock"></i>Logout</a>

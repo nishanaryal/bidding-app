@@ -44,11 +44,11 @@ $user = $_SESSION["username"];
 												echo "<a href='admin/users-list.php'><i class='ti-user'></i>Manage Users</a>";
 											?>
 
-											<!-- <?php if($loggedUser['user_role'] != "Super Admin")
+											<?php if($loggedUser['user_role'] != "Seller")
 												echo '<a href="admin/users-list.php"><i class="ti-user"></i>Manage Profile</a>';
 												echo '<a href="dashboard-photo.php?name=marsden-park-home"><i class="ti-layers-alt"></i>Manage Photo</a>';
 												echo '<a href="dashboard-mylistings.php"><i class="ti-layers-alt"></i>My Listings</a>'
-											?> -->
+											?>
 											<a class="active" href="../logout.php"><i class="ti-unlock"></i>Logout</a>
 										</div>
 										<?php } ?>

@@ -67,7 +67,6 @@ catch (Exception $e)
 }
 
 // $biddingData= mysqli_query($mysqli,"UPDATE bidders SET product_id = '$propertyID', user_id = '$UserID', amount = '$bidAmount'  WHERE slug='$listingSlug'");
-
     if(!$insertData)
     {
         echo mysqli_error();
@@ -76,21 +75,13 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 } 
 // Save Business Contact Info
 
-
-
 ?>
-
-
-
-
-
 
 
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
 	<?php include 'includes/header.php';?>  
-
 	<link rel="stylesheet" type="text/css" href="assets/css/custom-style.css">
 
 	<style>
@@ -100,7 +91,6 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 			font-weight:600;
 		}
 	</style>
-	
 </head>
 
 <body class="blue-skin">
@@ -269,7 +259,7 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 										<?php while($listing = mysqli_fetch_array($bidders))
 										{ ?>
 										<tr>
-											<td><?php echo $listing['bid_time']; ?></td>
+											<td><?php echo date('D, jS M Y G:i A', strtotime($listing['bid_time'])); ?></td>
 											<td><?php echo $listing['amount']; ?></td>
 										</tr>
 

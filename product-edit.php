@@ -4,13 +4,13 @@ include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
 
-$username = $_SESSION["email"];
-$userID = $_SESSION["userid"];
-$user = $_SESSION["username"];
-$user_image = $_SESSION["user_image"];
-// $user_fullname = $_SESSION["user_fullName"];
-$user_type = $_SESSION["user_type"];
-// $user_role = $_SESSION["user_role"];
+// $username = $_SESSION["email"];
+// $userID = $_SESSION["userid"];
+// $user = $_SESSION["username"];
+// $user_image = $_SESSION["user_image"];
+// // $user_fullname = $_SESSION["user_fullName"];
+// $user_type = $_SESSION["user_type"];
+// // $user_role = $_SESSION["user_role"];
 
 // $exhibitorID = (string)$_GET['eid'];
 $pid = $_GET['pid'];
@@ -90,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$auction_start = $_POST['auction_start'];
 	$auction_end = $_POST['auction_end'];
     $allowBidding = $_POST['allowBidding'];
+    $ModifiedOn = Date('Y-m-d H:i:s');
 
     try {
 
@@ -98,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                         features = 'features', additional_info = '$additional_info',
                                         categoryid = '$categoryid', isActive = '$isActive',
                                         isFeatured = '$isFeatured', auction_start = '$auction_start',
+                                        modifiedOn = '$ModifiedOn',
                                         auction_end = '$auction_end' WHERE productid='$pid'");
 
         if($updateData){
@@ -190,6 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                 <!-- Basic Information -->
                                 <div class="form-submit">   
                                     <h4><b>Edit Product</b> <?php echo $product['name']; ?></h4>
+                                    <p><b>Last Modified On: </b> <?php echo date('D, jS M Y G:i A', strtotime($product['modifiedOn'])); ?></p>
                                     <hr>
                                     <p>
                                     	<?php echo $message; ?>
@@ -366,16 +369,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 			<?php include('includes/footer.php'); ?>
 			<!-- ============================ Footer End ================================== -->
 			
-			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-
-			
-
 		</div>
 		<!-- ============================================================== -->
 		<!-- End Wrapper -->
 		<!-- ============================================================== -->
 
-		<?php include('includes/dashboard-footerJS.php'); ?>
+		<!-- All Jquery -->
+        <script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/rangeslider.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		<script src="assets/js/owl.carousel.min.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/slick.js"></script>
+		<script src="assets/js/slider-bg.js"></script>
+		<script src="assets/js/lightbox.js"></script> 
+		<script src="assets/js/imagesloaded.js"></script>
+		<script src="assets/js/jquery.counterup.min.js"></script>
+		<script src="assets/js/counterup.min.js"></script>
+		 
+		<script src="assets/js/custom.js"></script>
+		<script src="assets/js/auction.js"></script>
+		
+		<!-- This page plugins -->
+		<script src="assets/js/jquery.countdown.min.js"></script>
 		
         <!-- ================================= JS Cropper for Product Image ============================ -->
         <script>
