@@ -2,7 +2,7 @@
   <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <title>Online Expo</title>
+        <title>Bidding Nepal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <meta name="description" content="Search the most complete online expo Online Exhibition. Find online expos.">
   <meta name="keywords" content="Online Exhibitions,Online Expo, EXPOTV Online Exhibitions">

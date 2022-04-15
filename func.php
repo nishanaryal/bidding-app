@@ -5,8 +5,8 @@ $username = isset($_SESSION["username"]) ?  $_SESSION["username"] : 'Welcome';
 
 $userFullName = isset($_SESSION["userFullName"]) ? $_SESSION["userFullName"] : 'Welcome';
 
-$userImage = $_SESSION["userImage"];
-$userRole = $_SESSION["userRole"];
+$userImage = isset($_SESSION["userImage"]) ? $_SESSION["userImage"] : '';
+$userRole = isset($_SESSION["userRole"]) ? $_SESSION["userRole"] : '';
 
 
 ?>

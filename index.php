@@ -3,22 +3,6 @@ session_start();
 include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
-
-
-
-
-
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
-// $username = $_SESSION["email"];
-
-
-// $username = $_SESSION["email"];
-// global $mysqli;
-
-// $queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
-
 ?>
 
 <!DOCTYPE html>

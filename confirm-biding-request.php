@@ -1,14 +1,43 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require_once __DIR__ . '/vendor/phpmailer/src/Exception.php';
+require_once __DIR__ . '/vendor/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/vendor/phpmailer/src/SMTP.php';
+
+// passing true in constructor enables exceptions in PHPMailer
+$mail = new PHPMailer(true);
+
+// Server settings
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
+$mail->SMTPDebug = SMTP::DEBUG_OFF;
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+
+$mail->Username = 'aryalnishan@gmail.com'; // YOUR gmail email
+$mail->Password = 'vcbwzmyveijudybr'; // YOUR gmail password
+
+
+?>
+
+<?php
 session_start();
 include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
+
 
 $username = $_SESSION["email"];
 $UserID = $_SESSION["userid"];
 
 $bid = $_GET['bid'];
 $pid = $_GET['pid'];
+$emailSendMsg = '';
 
 
 $userData = mysqli_query($mysqli,"SELECT * FROM user WHERE email = '$username'");
@@ -21,6 +50,7 @@ $queryData = mysqli_query($mysqli,"SELECT
   products.productid,
   products.base_price,
   user.name AS bidderName,
+  user.email AS BidderEmail,
   bidders.amount AS biddingAmount,
   bidders.isWin As isWin,
   bidders.bid_time AS biddingTime
@@ -28,7 +58,9 @@ FROM products
 JOIN bidders
   ON products.productid = bidders.product_id
 JOIN user
-  ON user.userid = bidders.user_id");
+  ON user.userid = bidders.user_id
+  
+ WHERE bidders.product_id = '$pid'");
 
 try {
 		//First reset all Winners and
@@ -38,53 +70,75 @@ try {
 		$updateData = mysqli_query($mysqli,"UPDATE bidders SET isWin='1' WHERE bid_id='$bid'"); 
 		if($updateData){
 
-			$to = 'nishankumararyal@tuicms.edu.np'; 
-			$from = 'aryalnishan@gmail.com'; 
-			$fromName = 'Bidders Nepal'; 
-			
-			$subject = "Congratulations! Your bidding has been Approved."; 
-			
-			$htmlContent = ' 
-				<html> 
-				<head> 
-					<title>Welcome to CodexWorld</title> 
+			$getBidderInfo = mysqli_query($mysqli,
+							"SELECT
+							products.name AS productName,
+							products.slug,
+							products.productid,
+							products.base_price,
+							user.name AS bidderName,
+							user.email AS BidderEmail,
+							user.user_photo AS BidderPhoto,
+							bidders.amount AS biddingAmount,
+							bidders.isWin As isWin,
+							bidders.bid_time AS biddingTime
+						FROM products
+						JOIN bidders
+							ON products.productid = bidders.product_id
+						JOIN user
+							ON user.userid = bidders.user_id
+						WHERE bidders.bid_id = '$bid'");
+
+			while ($bidding = $getBidderInfo->fetch_assoc()) {
+
+			// Send Email notification
+			try {
+				// Sender and recipient settings
+				$mail->setFrom('testnow.emailservice@gmail.com', 'Bidding Nepal App');
+				$mail->addAddress($bidding['BidderEmail'], $bidding['bidderName']);
+				$mail->addReplyTo('nishan-aryal@outlook.com', 'Nishan Aryal'); // to set the reply to
+
+				// Setting the email content
+				$mail->IsHTML(true);
+				$mail->Subject = "Congratulations! ".$bidding['bidderName']." - ".$bidding['productName']." has been sold to you.";
+				
+				
+				$emailBody = '<html> 
+				<head>
+					<title>Congratulations! Product sold to you.</title> 
 				</head> 
-				<body> 
-					<h1>Thanks you for joining with us!</h1> 
-					<table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
-						<tr> 
-							<th>Name:</th><td>CodexWorld</td> 
-						</tr> 
-						<tr style="background-color: #e0e0e0;"> 
-							<th>Email:</th><td>contact@codexworld.com</td> 
-						</tr> 
-						<tr> 
-							<th>Website:</th><td><a href="http://www.codexworld.com">www.codexworld.com</a></td> 
-						</tr> 
-					</table> 
-				</body> 
-				</html>'; 
-			
-			// Set content-type header for sending HTML email 
-			$headers = "MIME-Version: 1.0" . "\r\n"; 
-			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
-			
-			// Additional headers 
-			$headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
-			$headers .= 'Cc: nishan-aryal@outlook.com' . "\r\n"; 
-			$headers .= 'Bcc: nishan-aryal@outlook.com' . "\r\n"; 
-			
-			// Send email 
-			if(mail($to, $subject, $htmlContent, $headers)){ 
-				echo 'Email has sent successfully.'; 
-			}else{ 
-			echo 'Email sending failed.'; 
+				<body>
+				<h1>Congratulations!!!</h1>';
+
+				$emailBody .= '<p>Your Bid has been approved and you are WINNER.';
+
+				$emailBody .=	"<table cellspacing='0' style='border: 2px dashed #FB4314; width: 100%;'> 
+								<tr> 
+									<td><b>Product Name: </b></td><td>".$bidding['productName']."</td> 
+								</tr>";
+				$emailBody .=	"<tr> 
+									<td><b>Product Base Price:</b></td><td>NPR. ".$bidding['base_price']."</td> 
+								</tr>";
+				$emailBody .=	"<tr> 
+									<td><b>Product Sold Price: </b></td><td>NPR. ".$bidding['biddingAmount']."</td> 
+								</tr>";
+				$emailBody .=	"</table> 
+								</body> 
+								</html>";
+
+				$mail->Body = $emailBody;
+
+				$mail->AltBody = 'Congratulations! '.$bidding['bidderName'].' Your BID for '.$bidding['productName'].' has been approved. You have won the BID. Please clear the pending dues and collet your Product.';
+
+				$mail->send();
+				$emailSendMsg = "Email message sent successfully";
 			}
+			catch (Exception $e) {
+				echo "Error in sending email. Mailer Error: {$mail->ErrorInfo}";
+			}
+			} //While Loop
 
-
-
-			// echo "<script>alert('Update Successfully');</script>";
-			header("Location:product-bidders.php?pid=".$pid);
+			// ./Send Email Notification
 		}
 		if(!$updateData){
 			echo mysqli_error();
@@ -113,9 +167,6 @@ catch (Exception $e)
 		<!-- Custom Color Option -->
 		<link href="assets/css/colors.css" rel="stylesheet">
 
-
-
-
 		<!-- JS Cropper  -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -126,13 +177,10 @@ catch (Exception $e)
 	<script src="https://unpkg.com/cropperjs"></script>
 	<!-- ./JS Cropper -->
 
-
 	<!-- JS Cropper CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/js-cropper.css">
 	<!-- ./JS Cropper CSS -->
 
-
-		
 	</head>
 	
 	<body class="red-skin">
@@ -146,7 +194,7 @@ catch (Exception $e)
 			<!-- Top header  -->
 		
 			
-			<!-- ============================ Dashboard Start ================================== -->
+			<!-- Dashboard Start -->
 			<section class="gray">
 				<div class="container">
 					
@@ -163,6 +211,7 @@ catch (Exception $e)
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-wraper">
 							<div class="mt-0">
+								<div class="alert alert-success"><?php echo $emailSendMsg; ?></div>
 									<h3>Bidders List</h3>
 									
 									<button style="margin-bottom: 30px;" class="btn btn-primary" onclick="history.back()">Go Back</button>

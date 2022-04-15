@@ -23,7 +23,15 @@
 		<img src="<?php echo $userImage; ?>" class="img-fluid avater" title="<?php echo $username; ?>" alt="<?php echo $username; ?>">
 		<h4> <?php echo $loggedUser['name']; ?></h4>
 		<!-- <h4><?php isset($user_fullname) ? $user_fullname: "Welcome"; ?></h4> -->
-		<p class="badge badge-primary badge-lg"><?php echo $loggedUser['user_role']; ?></p><br>
+		
+			<?php if($loggedUser['isKYCVerified'] == 1){
+				echo '<p class="badge badge-success badge-lg"><i class="fa fa-check">&nbsp;</i>'.$loggedUser['user_role'].'</p>';
+			}
+			else{
+				echo '<p class="badge badge-danger badge-lg"><i class="fa fa-minus-circle">&nbsp;</i>'.$loggedUser['user_role'].'</p>';
+			}
+			?>
+			<br>
 		<span><i class="ti-envelope"></i> <?php echo $loggedUser['email']; ?></span>
 	</div>
 								
@@ -31,12 +39,12 @@
 		<ul>
 			<li class="active"><a href="user-profile.php"><i class="ti-dashboard"></i>Manage Profile</a></li>
 			
-            <?php if($loggedUser['user_role'] == "Seller") 
+            <!-- <?php if($loggedUser['user_role'] == "Seller") 
                 echo "<li><a href='dashboard-photo.php?name=marsden-park-home'><i class='ti-user'></i>Manage Photo</a></li>";
-            ?>
+            ?> -->
 
             <?php if($loggedUser['user_role'] == "Seller" || $loggedUser['user_role'] == "General / Buyer") 
-                echo "<li><a href='user-kyc.php'><i class='ti-user'></i>KYC Details</a></li>";
+                echo "<li><a href='user-profile.php'><i class='ti-user'></i>KYC Details</a></li>";
             ?>
 
 			<?php if($loggedUser['user_role'] == "Super Admin") 

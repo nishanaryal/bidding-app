@@ -61,7 +61,7 @@ $featuredAuctions = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                                     </div>
                                                 </a>
                                                 <div class="Reveal-verticle-listing-caption">
-                                                    <a href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>" class="like-listing"></a>
+                                                    <a href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>" class=""></a>
 
                                                     <div class="Reveal-listing-shot-caption">
                                                         <h4><a href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>"><?php echo $featuredProd['name']; ?></a></h4>
@@ -69,8 +69,9 @@ $featuredAuctions = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                                         <div class="property_meta"> 
                                                           <div class="list-fx-features">
                                                                 <div class="listing-card-info-icon">
-                                                                    <span class="inc-fleat inc-check"><b>Starting from </b>Rs. <?php echo $featuredProd['base_price']; ?></span>
-                                                                    <?php echo $biddingTime; ?>
+                                                                    <b>Starting Price: </b>NPR. <?php echo $featuredProd['base_price']; ?>
+                                                                    <!-- <span class="inc-fleat inc-check"><b>Starting from </b>Rs. <?php echo $featuredProd['base_price']; ?></span>
+                                                                    <?php echo $biddingTime; ?> -->
                                                                 </div>
                                                             </div>  
                                                         </div>

@@ -33,6 +33,10 @@ if(isset($_POST['update_UserProfile']))
     $Email=$_POST['email'];
     $Phone=$_POST['phone'];
     $Address=$_POST['address'];
+    $PermanentAddress=$_POST['permanent_address'];
+    $DocType=$_POST['docType'];
+    $Document=$_POST['document'];
+
     $DOB=$_POST['dob'];
     $ModifiedOn = Date('Y-m-d H:i:s');
     
@@ -155,9 +159,8 @@ if(isset($_POST['update_UserProfile']))
                                                 <input type="date" value="<?php echo $user['dob'];?>" id="dob" name="dob" class="form-control" placeholder="Date of Birth">
                                             </div>
 
-
                                             <div class="form-group col-md-12 col-lg-12">
-                                                <label>Address</label>
+                                                <label>TemporAddress</label>
                                                 <input type="address" value="<?php echo $user['address'];?>" id="address" name="address" class="form-control" placeholder="Eg. Sanepa Height, Lalitpur">
                                             </div>
                                            

@@ -4,8 +4,8 @@ include_once("db-config.php");
 include_once("functions.php");
 include_once("func.php");
 
-$username = $_SESSION["email"];
-$queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
+// $username = $_SESSION["email"];
+// $queryData = mysqli_query($mysqli,"SELECT * FROM users WHERE email = '$username'");
 
 global $mysqli;
 
@@ -15,121 +15,6 @@ global $mysqli;
 <html lang="en">
 	<head>
 	  <?php include 'includes/header.php';?> 
-
-
-	  <script type="text/javascript">
-	
-
-	function RegisterValid()
-	{
-
-
-    var Name     =Registerform.name;
-    var Uname    =Registerform.uname;
-    var Password =Registerform.password;
-    var email    =Registerform.email;
-    var phone    =Registerform.phone;
-    var dob      =Registerform.dob;
-    var gender   =Registerform.gender;
-    var address  =Registerform.address;
-    var user_type =Registerform.user_type;
-
-
-    if (Name.value == "")
-    {
-        window.alert("Please enter your name.");
-        Name.focus();
-        return false;
-    }
-
-    // if (!/^[a-zA-Z]*$/g.test(Name.value)) {
-    //     alert("Invalid Characters For Name");
-    //     Name.focus();
-    //     return false;
-    // }
-
-    if (Uname.value == "")
-    {
-        window.alert("Please enter your username.");
-        Uname.focus();
-        return false;
-    }
-    if (Password.value == "")
-    {
-        window.alert("Please enter your Password.");
-        Password.focus();
-        return false;
-    }
-    
-    if (email.value == "")
-    {
-        window.alert("Please enter your email.");
-        email.focus();
-        return false;
-    }
-
-     if (!validateCaseSensitiveEmail(email.value))
-    {
-        window.alert("Please enter a valid e-mail address.");
-        email.focus();
-        return false;
-    }
-
-
-
-    if (phone.value == "")
-    {
-        window.alert("Please enter your telephone number.");
-        phone.focus();
-        return false;
-    }
-
-    if (phone.value.length != 10)
-    {
-        window.alert("Please  your telephone number must be 10 digit.");
-        phone.focus();
-        return false;
-    }
-
-
-    if (dob.value == "")
-    {
-        window.alert("Please Date of Birth.");
-        dob.focus();
-        return false;
-    }
-    if (address.value == "")
-    {
-        window.alert("Please provide Your Address");
-        address.focus();
-        return false;
-    }
-
-    if (gender.value == "")
-    {
-        window.alert("Please provide Gender.");
-        gender.focus();
-        return false;
-    }
-
-    return true;
-}
-
- 
-function validateCaseSensitiveEmail(email) 
-{ 
- var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
- if (reg.test(email)){
- return true; 
-}
- else{
- return false;
- } 
-} 
-
-</script>
-
-
 	</head>
 	
 	<body class="blue-skin">
@@ -143,23 +28,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		 $dbname = "auctionbid";
 		 $connection= mysqli_connect($Server,$username,$psrd,$dbname);
 
-         $name     =$_POST['name'];
-         $uname    =$_POST['uname'];
-         $Password =$_POST['password'];
+         $fullname     =$_POST['fullname'];
+         $username    =$_POST['username'];
+         $password =$_POST['password'];
          $email    =$_POST['email'];
          $phone    =$_POST['phone'];
          $dob      =$_POST['dob'];
          $gender   =$_POST['gender'];
          $address  =$_POST['address'];
-         $user_type  =$_POST['user_type'];
+         $user_role  =$_POST['user_role'];
 
 
-         $destination = "upload/profile/".$_FILES['image']['name'];
+         $pic_destination = $_FILES['image']['name'];
          $filename    = $_FILES['image']['tmp_name'];  
 
-         move_uploaded_file($filename, $destination);
+         move_uploaded_file($filename, "upload/profile/".$pic_destination);
 
-         $query="insert into User(name,userName,password,email,phone,gender,dob,address,image,user_type) values('$name','$uname','$Password','$email','$phone','$gender','$dob','$address','$destination','$user_type')";
+         $query="INSERT INTO user (name,username,password,email,phone,gender,dob,address,user_photo,user_role) values('$fullname','$username','$password','$email','$phone','$gender','$dob','$address','$pic_destination','$user_role')";
+		 $query="INSERT INTO user (name,username,password,email,phone,gender,dob,address,user_photo,user_role) values('$fullname','$username','$password','$email','$phone','$gender','$dob','$address','$pic_destination','$user_role')";
          $ret= mysqli_query($connection,$query);
       
         echo '<script language="javascript">';
@@ -209,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+									<input type="text" class="form-control" name="fullname" id="fullname"  placeholder="Enter your Name"/>
 								</div>
 							</div>
 						</div>
@@ -218,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="uname" id="uname"  placeholder="Enter your User Name"/>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your User Name"/>
 								</div>
 							</div>
 						</div>
@@ -297,9 +183,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<div class="form-group">
 							<label  class="cols-sm-2 control-label">User Type</label>
 							<div class="cols-sm-10">
-								<select class="form-control" name="user_type" id="user_type">
+								<select class="form-control" name="user_role" id="user_role">
 									<option value="Seller">Seller</option>
-									<option value="Buyer">Buyer</option>
+									<option value="Buyer / General">Buyer / General</option>
 								</select>
 								
 							</div>
@@ -328,60 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<!-- ============================ Footer Start ================================== -->
 			<?php include('includes/footer.php'); ?>
 			<!-- ============================ Footer End ================================== -->
-			
-			<!-- Log In Modal -->
-			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal">
-				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
-					<div class="modal-content" id="registermodal">
-						<span class="mod-close" data-dismiss="modal"><i class="ti-close"></i></span>
-						<div class="modal-body">
-							<h4 class="modal-header-title">Log <span class="theme-cl">In</span></h4>
-							<div class="login-form">
-								<form>
-								
-									<div class="form-group">
-										<label>User Name</label>
-										<div class="input-with-icon gray">
-											<input type="text" class="form-control" placeholder="Username" value="silverlun.03@gmail.com" />
-											<i class="ti-user"></i>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label>Password</label>
-										<div class="input-with-icon gray">
-											<input type="password" class="form-control" placeholder="*******" value="Nepal@123" />
-											<i class="ti-unlock"></i>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<button type="submit" class="btn btn-md full-width pop-login">Login</button>
-									</div>
-								
-								</form>
-							</div>
-							<div class="modal-divider"><span>Or login via</span></div>
-							<div class="social-login mb-3">
-								<ul>
-									<li><a href="#" class="btn fb"><i class="ti-facebook"></i></a></li>
-									<li><a href="#" class="btn google"><i class="ti-google"></i></a></li>
-									<li><a href="#" class="btn twitter"><i class="ti-twitter"></i></a></li>
-								</ul>
-							</div>
-							<div class="modat-foot">
-								<div class="md-left">Have't Account? <a href="register.html" class="theme-cl">Sign Up</a></div>
-								<div class="md-right"><a href="#" class="theme-cl">Forget Password?</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Modal -->
-			
-			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
-			
 
 		</div>
 		<!-- ============================================================== -->
@@ -410,7 +243,109 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
 
-	</body>
 
-<!-- Mirrored from codeminifier.com/reveal-live/reveal/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 31 Jul 2021 10:36:05 GMT -->
+		<script type="text/javascript">
+	function RegisterValid()
+	{
+    var fullname     = Registerform.fullname;
+    var username    = Registerform.username;
+    var password = Registerform.password;
+    var email    = Registerform.email;
+    var phone    = Registerform.phone;
+    var dob      = Registerform.dob;
+    var gender   = Registerform.gender;
+    var address  = Registerform.address;
+    var user_role = Registerform.user_role;
+
+
+    if (fullname.value == "")
+    {
+        window.alert("Please enter your name.");
+        Name.focus();
+        return false;
+    }
+
+    // if (!/^[a-zA-Z]*$/g.test(Name.value)) {
+    //     alert("Invalid Characters For Name");
+    //     Name.focus();
+    //     return false;
+    // }
+
+    if (username.value == "")
+    {
+        window.alert("Please enter your username.");
+        Uname.focus();
+        return false;
+    }
+    if (password.value == "")
+    {
+        window.alert("Please enter your Password.");
+        Password.focus();
+        return false;
+    }
+    
+    if (email.value == "")
+    {
+        window.alert("Please enter your email.");
+        email.focus();
+        return false;
+    }
+
+     if (!validateCaseSensitiveEmail(email.value))
+    {
+        window.alert("Please enter a valid e-mail address.");
+        email.focus();
+        return false;
+    }
+
+    if (phone.value == "")
+    {
+        window.alert("Please enter your telephone number.");
+        phone.focus();
+        return false;
+    }
+
+    if (phone.value.length != 10)
+    {
+        window.alert("Please  your telephone number must be 10 digit.");
+        phone.focus();
+        return false;
+    }
+
+    if (dob.value == "")
+    {
+        window.alert("Please Date of Birth.");
+        dob.focus();
+        return false;
+    }
+    if (address.value == "")
+    {
+        window.alert("Please provide Your Address");
+        address.focus();
+        return false;
+    }
+
+    if (gender.value == "")
+    {
+        window.alert("Please provide Gender.");
+        gender.focus();
+        return false;
+    }
+
+    return true;
+}
+
+ 
+	function validateCaseSensitiveEmail(email) 
+	{ 
+	var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+	if (reg.test(email)){
+	return true; 
+	}
+	else{
+	return false;
+	} 
+	} 
+	</script>
+	</body>
 </html>
