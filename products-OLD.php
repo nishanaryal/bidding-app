@@ -180,13 +180,12 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 
 						<div class="col-lg-3 col-md-3 col-sm-12">
 										<div class="row main_login_form">
-											<div class="login_form_dm" id="allowBidding">
+											<div class="login_form_dm" id="allowBid">
 											<?php
 													$maxBidAmt = ($maxBidAmt > $startingPrice) ? $maxBidAmt : $startingPrice;
 													$minBidAmt = ($maxBidAmt > $startingPrice) ? $maxBidAmt : $startingPrice;
-                                                    $intialBidAmt = round($minBidAmt + ($minBidAmt*0.000001));
 													
-													$maxBidAmt = $minBidAmt + ($minBidAmt*0.0008);
+													$maxBidAmt = $minBidAmt + ($minBidAmt*0.01);
 												?>
 												
 												<!-- <h1 class="text-center">								
@@ -200,8 +199,9 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 													<fieldset>
 														<p class="edd-login-username">
 															<label>MIN BID AMOUNT <?php echo $minBidAmt; ?></label>
-															<input class="form-control" type="number" id="bid_amount" max="<?php echo $maxBidAmt; ?>" min="<?php echo $intialBidAmt; ?>" name="bid_amount" placeholder="BID Amount" value="<?php echo $intialBidAmt; ?>" />
+															<input class="form-control" type="number" id="bid_amount" max="<?php echo $maxBidAmt; ?>" min="<?php echo $minBidAmt; ?>" name="bid_amount" placeholder="BID Amount" value="<?php echo $minBidAmt; ?>" />
 														</p>
+														
 														
 														<p class="edd-login-submit">
 															<input type="submit" class="btn btn-md btn-theme full-width" value="BID NOW">
@@ -294,10 +294,20 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 		<?php include('includes/footer.php'); ?>
 		<!-- == Footer End === -->
 
-	</div>
-	<!-- End Wrapper -->
+		
 
+		<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+
+	<!-- ============================================================== -->
 	<!-- All Jquery -->
+	<!-- ============================================================== -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
@@ -313,14 +323,25 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 	<script src="assets/js/counterup.min.js"></script>
 
 	<script src="assets/js/custom.js"></script>
+	<!-- ============================================================== -->
 	<!-- This page plugins -->
+	<!-- ============================================================== -->
+
 
 	<script src="assets/js/jquery.countdown.min.js"></script>
 
 
 		<!-- Single Instance -->
 		<script>
-            $('#allowBidding').hide();
+
+// $('#clock').countdown('<?php echo $auction_endDate; ?>', function(event) {
+//   var $this = $(this).html(event.strftime(''
+//     + '<span>%w</span> weeks '
+//     + '<span>%d</span> days '
+//     + '<span>%H</span> hr '
+//     + '<span>%M</span> min '
+//     + '<span>%S</span> sec'));
+// });
 
 			var m = new Date();
 			var currentDateTime =
@@ -400,6 +421,21 @@ header("Location:products.php?name=".$Slug."&bid=".$bid);
 					$('#bidClosedImg').css("display", "block");
 
 				});
+
+
+			// AJAX
+			// function closeBID () {
+			// 	$.ajax({
+			// 		url:"functions.php?action=BidClose_AnnounceWinner",    //the page containing php script
+			// 		type: "POST",    //request type,
+			// 		dataType: 'json',
+			// 		data: {propertyID: <?php echo $featuredExhibitor['id']; ?>},
+			// 		success:function(result){
+			// 			console.log(result);
+			// 		}
+			// 	});
+   			//  }
+			// AJAX
 		</script>
 		<!-- Single Instance -->
 </body>

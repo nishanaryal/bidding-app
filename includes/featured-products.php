@@ -46,11 +46,11 @@ $featuredAuctions = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                     }
 
                                     ?>
-
                                 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="Reveal-verticle-list listing-shot">
-                                            <?php echo $BidMsg; ?>
+                                            <!-- <?php echo $BidMsg; ?> -->
+                                            <div class='listing-badge now-open'><?php echo $featuredProd['biddingStatus']; ?></div>
 
                                             <div class="Reveal-signle-item">
                                                 <a class="listing-item" href="products.php?name=<?php echo $featuredProd['slug']; ?>&bid=<?php echo $featuredProd['productid']; ?>">
@@ -76,8 +76,13 @@ $featuredAuctions = mysqli_query($mysqli,"SELECT * FROM products WHERE isFeature
                                                             </div>  
                                                         </div>
 
-                                                        <?php if($featuredProd['allowBidding'] == "yes") { ?>
+                                                        <?php if($featuredProd['biddingStatus'] == "Running") { ?>
                                                             <a href="javascript:bid('<?php echo $featuredProd['slug']; ?>', <?php echo $featuredProd['productid']; ?>)" class="btn btn-primary"><?php echo $bidBtnTxt; ?>
+                                                            </a>
+                                                        <?php } ?>
+
+                                                        <?php if($featuredProd['biddingStatus'] == "Opening Soon") { ?>
+                                                            <a href="javascript:bid('<?php echo $featuredProd['slug']; ?>', <?php echo $featuredProd['productid']; ?>)" class="btn btn-primary">Read More
                                                             </a>
                                                         <?php } ?>
 

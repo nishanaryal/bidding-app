@@ -29,21 +29,96 @@ while($profileData = mysqli_fetch_array($userProfile));
 
 if(isset($_POST['update_UserProfile']))
 {  
-    $Name=$_POST['name'];
-    $Email=$_POST['email'];
-    $Phone=$_POST['phone'];
-    $Address=$_POST['address'];
+    $Name       =   $_POST['name'];
+    $Email      =   $_POST['email'];
+    $Phone      =   $_POST['phone'];
+    $Address    =   $_POST['address'];
     $PermanentAddress=$_POST['permanent_address'];
-    $DocType=$_POST['docType'];
-    $Document=$_POST['document'];
+    $DocType        =   $_POST['docType'];
+    $DocumentNo     =   $_POST['documentNo'];
+    // $Document=$_POST['document'];
 
     $DOB=$_POST['dob'];
     $ModifiedOn = Date('Y-m-d H:i:s');
+
+    // Upload KYC Document
+    $target_dir = "upload/profile/kyc/";
+
+    // $data_DocumentFile = $_POST['document'];
+    // $docs_array_1 = explode(";", $data_DocumentFile);
+
+	// $docs_array_2 = explode(",", $docs_array_1[1]);
+
+    // $data_DocumentFile = base64_decode($docs_array_2[1]);
+
+	// $image_name_document = time() . '.jpg';
+	// $image_location_document=  'upload/profile/kyc/' . $image_name_document;
+
+
+
+    $documentUploadName = basename($_FILES["document"]["name"]);
+    $target_file = $target_dir . basename($_FILES["document"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["document"])) {
+    $check = getimagesize($_FILES["document"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+    }
+
+
+  // Check if file already exists
+  if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+  }
+  
+  // Check file size
+  if ($_FILES["document"]["size"] > 500000) {
+    echo "Sorry, your file is too large. Please try uploading smaller size file.";
+    $uploadOk = 0;
+  }
+  
+  // Allow certain file formats
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+  }
+  
+  // Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+  // if everything is ok, try to upload file
+  } else {
+    if (move_uploaded_file($_FILES["document"]["tmp_name"], $target_file)) {
+      echo "The file ". htmlspecialchars( basename( $_FILES["document"]["name"])). " has been uploaded.";
+    } else {
+      echo "Sorry, there was an error uploading your file.";
+    }
+  }
+
+
+
+
+    // Upload KYC Document
     
      $updateUserData = mysqli_query($mysqli,"UPDATE user SET name='$Name',email='$Email',
                                     phone='$Phone', address='$Address', 
                                     dob = '$DOB', isActive = '1', 
-                                    modifiedOn = '$ModifiedOn' 
+                                    modifiedOn = '$ModifiedOn',
+                                    address = '$Address',
+                                    permanent_address = '$PermanentAddress',
+                                    docType = '$DocType',
+                                    documentNo = '$DocumentNo',
+                                    document = '$documentUploadName'
                                     WHERE userid='$userID'");
     
     if($updateUserData){
@@ -123,7 +198,7 @@ if(isset($_POST['update_UserProfile']))
                                     <p><b>Last Modified On: </b> <?php echo date('D, jS M Y G:i A', strtotime($user['modifiedOn']));?> </p>
                                     <br>
                                     <div class="submit-section">
-                                        <form method="post" action="" >
+                                        <form method="post" action="" enctype="multipart/form-data">
                                         <div class="form-row">
                                             
                                             <div class="form-group col-md-12">
@@ -159,14 +234,53 @@ if(isset($_POST['update_UserProfile']))
                                                 <input type="date" value="<?php echo $user['dob'];?>" id="dob" name="dob" class="form-control" placeholder="Date of Birth">
                                             </div>
 
-                                            <div class="form-group col-md-12 col-lg-12">
-                                                <label>TemporAddress</label>
+                                            
+
+                                            <div class="form-group col-md-6 col-lg-6">
+                                                <label>Temporary Address</label>
                                                 <input type="address" value="<?php echo $user['address'];?>" id="address" name="address" class="form-control" placeholder="Eg. Sanepa Height, Lalitpur">
                                             </div>
+
+                                            <div class="form-group col-md-6 col-lg-6">
+                                                <label>Permanent Address</label>
+                                                <input type="permanent_address" value="<?php echo $user['permanent_address'];?>" id="permanent_address" name="permanent_address" class="form-control" placeholder="Eg. Sanepa Height, Lalitpur">
+                                            </div>
+
+
+                                            <div class="form-group col-md-4 col-lg-4">
+                                                <label>Document Type</label>
+                                                <select name="docType" id="docType" class="form-control combobox" required autocomplete="off">
+                                                    <option value="Citizenship" selected="selected">Citizenship</option>
+                                                    <option value="Passport">Passport</option>
+                                                    <option value="PAN">PAN</option>
+                                                    <option value="Company Registration Document">Company Registration Document</option>
+                                                    <option value="None">Nonex`</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-4 col-lg-4">
+                                                <label>Identity No</label>
+                                                
+                                                <input type="text" id="documentNo" name="documentNo" value="<?php echo $user['documentNo'];?>" placeholder="Enter Identity No"class="form-control" />
+                                            </div>
+
+                                            <div class="form-group col-md-4 col-lg-4">
+                                                <label>KYC Verification Document</label>
+                                                <!-- <?php
+                                                    if(file_exists("upload/profile/kyc/".$user['document'])){
+                                                        echo "<a class='btn btn-sm' href='upload/profile/kyc/".$user['document'].">View Document</a>";
+                                                    }
+                                                ?> -->
+                                                
+                                                <input type="file" id="document" name="document" class="" />
+                                            </div>
+
+
+
                                            
                                             <div class="form-group col-md-12">
-                                            <input type="submit" value="SAVE" name="update_UserProfile" id="update_UserProfile" class="btn btn-secondary" />
-                                            <input name="" type="reset" value="Reset" class="btn btn-secondary" />
+                                            <input type="submit" value="SAVE" name="update_UserProfile" id="update_UserProfile" class="btn btn-primary" />
+                                            <input name="" type="reset" value="Reset" class="btn btn-danger" />
                                             </div>
 
 

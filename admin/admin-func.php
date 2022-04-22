@@ -29,7 +29,7 @@ if(isset($_GET['delete-userid']))
 
 
 // Make Bidder WIN
-makeBidderWin
+// makeBidderWin
 // Make Bidder WIN
 
 // Update UserProfile

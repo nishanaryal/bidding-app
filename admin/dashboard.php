@@ -155,7 +155,20 @@ $numBidding = $biddingRow['totalBidders'];
 											</td>
 											<td><?php echo $userData['name']; ?></td>
 											<td><?php echo $userData['username']; ?></td>
-											<td><?php echo $userData['email']; ?></td>
+											<td>
+												<?php echo $userData['email']."<br>"; 
+
+												if($userData['isKYCVerified']){
+													echo "<p class='badge badge-success'><i class='fa fa-check'>&nbsp</i>KYC Verified</p>";
+												}
+												else {
+													echo "<p class='badge badge-danger'><i class='fa fa-times'>&nbsp</i>KYC Not Verified</p>";
+													// echo "";
+													// echo '<a href="javascript:verifyKYC(''.$userData["userid"].')" class='badge badge-danger' class='btn btn-primary'>Verify KYC Now</a>';
+												}
+												?>
+											
+											</td>
 											<td><?php echo $userData['phone']; ?></td>
 											<td><?php echo $userData['user_role']; ?></td>
 											<td>
@@ -192,6 +205,7 @@ $numBidding = $biddingRow['totalBidders'];
 												<th>Product Name</th>
 												<th>IsActive</th>
 												<th>IsFeatured</th>
+												<th>Bidding Status</th>
 												<th>Auction Start</th>
 												<th>Auction End</th>
 												<th></th>
@@ -210,6 +224,19 @@ $numBidding = $biddingRow['totalBidders'];
 											<td><?php echo $product['name']; ?></td>
 											<td><?php echo $product['isActive']; ?></td>
 											<td><?php echo $product['isFeatured']; ?></td>
+											<td>											
+												<?php
+												if($product['biddingStatus']  == "Running"){
+													echo "<span class='badge badge-success'>Running</span>";
+												}
+												if($product['biddingStatus']  == "Closed"){
+													echo "<span class='badge badge-danger'>Closed</span>";
+												}
+												if($product['biddingStatus']  == "Opening Soon"){
+													echo "<span class='badge badge-primary'>Opening Soon</span>";
+												}
+												?>
+												</td>
 											<td><?php echo $product['auction_start']; ?></td>
 											<td><?php echo $product['auction_end']; ?></td>
 											<td>

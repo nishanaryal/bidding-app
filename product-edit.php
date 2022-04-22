@@ -15,60 +15,9 @@ include_once("func.php");
 // $exhibitorID = (string)$_GET['eid'];
 $pid = $_GET['pid'];
 
-$message = "";
+$success_message = "";
 
 $productDetails = mysqli_query($mysqli,"SELECT *, DATE_FORMAT(auction_start, '%Y-%m-%dT%H:%i') AS startDate, DATE_FORMAT(auction_end, '%Y-%m-%dT%H:%i') AS endDate FROM products WHERE productid = '$pid'");
-   
-// while($product = mysqli_fetch_array($productDetails));
-// {
-//     $productid = $product['productid'];
-//     $name = $product['name'];
-//     $photo = $product['photo'];
-//     $slug = $product['slug'];
-//     $shortdescription = $product['shortdescription'];
-//     $description = $product['description'];
-//     $features = $product['features'];
-//     $additional_info = $product['additional_info'];
-//     $exhibitorid = $product['exhibitorid'];
-//     $categoryid = $product['categoryid'];
-//     $isActive = $product['isActive'];
-//     $isFeatured = $product['isFeatured'];
-//     $allowBidding = $product['allowBidding'];
-//     $auction_start = $product['auction_start'];
-//     $auction_start = $product['auction_start'];
-//     $base_price = $product['base_price'];
-// }
-
-
-
-// $slug = (string)$_GET['name'];
-// $pid = (string)$_GET['pid'];
-
-// $orgSlug = (string)$_GET['name'];
-// $productDetails = mysqli_query($mysqli,"SELECT * FROM products WHERE productid = '$pid'");
-
-// $queryData = mysqli_query($mysqli,"SELECT * FROM exhibitor_profile WHERE userid = '$UserID'");
-
-
-// while($product = mysqli_fetch_array($productDetails))
-// {
- 
-// $name = '';
-// $base_price = 25000;
-// $photo = 'no-image.jpg';
-// $slug = '';
-// $shortdescription = '';
-// $description = '';
-// $features = '';
-// $additional_info = '';
-// $exhibitorid = '';
-// $categoryid = '';
-// $isFeatured = '';
-// $auction_start = '';
-// $auction_end = '';
-//  // $profilePic = ($user['profilepic'] == NULL) ? "upload/profile/$user['profilepic']" : "assets/img/user-1.png";
-// }
-
 
 
 // Edit Products
@@ -89,22 +38,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$isFeatured = $_POST['isFeatured'];
 	$auction_start = $_POST['auction_start'];
 	$auction_end = $_POST['auction_end'];
-    $allowBidding = $_POST['allowBidding'];
+    $biddingStatus = $_POST['biddingStatus'];
     $ModifiedOn = Date('Y-m-d H:i:s');
+
+    if($auction_end <= $auction_start)
+    {
+        echo "<script>alert('Auction End date should be greater than Auction Start Date.');</script>";
+    }
 
     try {
 
-	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name', base_price = '$base_price',
-                                        shortdescription = '$shortdescription', description = '$description', 
-                                        features = 'features', additional_info = '$additional_info',
-                                        categoryid = '$categoryid', isActive = '$isActive',
-                                        isFeatured = '$isFeatured', auction_start = '$auction_start',
+	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name',
+                                        base_price = '$base_price',
+                                        shortdescription = '$shortdescription',
+                                         description = '$description', 
+                                        features = 'features',
+                                        additional_info = '$additional_info',
+                                        categoryid = '$categoryid',
+                                        isActive = '$isActive',
+                                        isFeatured = '$isFeatured',
+                                        auction_start = '$auction_start',
                                         modifiedOn = '$ModifiedOn',
-                                        auction_end = '$auction_end' WHERE productid='$pid'");
+                                        biddingStatus = '$biddingStatus',
+                                        auction_end = '$auction_end'
+                                        WHERE productid='$pid'");
 
         if($updateData){
             echo "<script>alert('Update Successfully');</script>";
-            header("Location:dashboard-mylistings.php");
+            $success_message = "<div class='alert alert-success'><b>Product Edited Successfully!</b></div>";
+            header("Location:product-edit.php?pid=".$pid);
         }
         // if(!$updateData){
         //     echo mysqli_error();
@@ -113,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	} 
     catch (Exception $e)
     {
-    $message = 'Unable to add new product.' + $e;
+    $success_message = 'Unable to add new product.' + $e;
     throw new Exception( 'Unable to save details. Please try again later.',0,$e);
     }
 }
@@ -192,11 +154,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                 <!-- Basic Information -->
                                 <div class="form-submit">   
                                     <h4><b>Edit Product</b> <?php echo $product['name']; ?></h4>
-                                    <p><b>Last Modified On: </b> <?php echo date('D, jS M Y G:i A', strtotime($product['modifiedOn'])); ?></p>
+                                    <p><strong>Last Modified On: </strong> <?php echo date('D, jS M Y G:i A', strtotime($product['modifiedOn'])); ?></p>
                                     <hr>
-                                    <p>
-                                    	<?php echo $message; ?>
-                                    </p>
+                                    
+                                    <?php echo $success_message; ?>
+
+                                    
                                     <div class="submit-section">
                                         <form method="POST" id="ProductDetails">
                                         <div class="form-row">
@@ -206,8 +169,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 <input type="text" name="exhibitorid" id="exhibitorid" class="form-control" hidden value="<?php echo $product['exhibitorid']; ?>">
                                             </div>
 
+                                            <div class="form-group col-md-4 col-lg-4">
+                                                <label>Auction Start</label>
+                                                <input type="datetime-local" name="auction_start" id="auction_start" value="<?php echo $product['startDate']; ?>" class="form-control" />
+                                            </div>
+
+                                             <div class="form-group col-md-4 col-lg-4">
+                                                <label>Auction End</label>
+                                                <input type="datetime-local" name="auction_end" id="auction_end" value="<?php echo $product['endDate']; ?>" class="form-control" />
+                                            </div>
+
+                                             <div class="form-group col-md-4 col-md-4">
+                                                <label>Bidding Status</label>
+                                                <select name="biddingStatus" required autocomplete="on" class="form-control combobox" id="biddingStatus">
+                                                    <option value="Running" <?php if($product['biddingStatus'] == "Running") echo 'selected = "selected"'; ?>>Running</option>
+                                                    <option value="Closed" <?php if($product['biddingStatus'] == "Closed") echo 'selected = "selected"'; ?>>Closed</option>
+                                                    <option value="Opening Soon" <?php if($product['biddingStatus'] == "Opening Soon") echo 'selected = "selected"'; ?>>Opening Soon</option>
+                                                </select>
+                                            </div>
+
+                                            
+
                                             <div class="form-group col-md-6 col-lg-6">
-                                                <label>Base Price for Bidding</label>
+                                                <label>Base Price for Bidding (NPR)</label>
                                                 <input type="number" name="base_price" id="base_price" class="form-control" min="1000" value="<?php echo $product['base_price']; ?>" placeholder="Base Price for Product">
                                             </div>
 
@@ -229,7 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                             </div>
 
                                             <div class="form-group col-md-12 col-lg-12">
-                                                <label>SLUG / URL <span>[Please contact Administrator to change this.]</span></label> 
+                                                <label>SLUG / URL <span class="text-danger">[Please contact Administrator to change this.]</span></label> 
                                                 <input type="text" disabled name="slug" id="slug" value="<?php echo $product['slug']; ?>" class="form-control">    
                                             </div>                                      
 
@@ -261,24 +245,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 </textarea>
                                             </div>
 
-
-                                            <div class="form-group col-md-6 col-lg-6">
-                                                <label>Auction Start</label>
-                                                <input type="datetime-local" name="auction_start" id="auction_start" value="<?php echo $product['startDate']; ?>" class="form-control" />
-                                            </div>
-
-                                             <div class="form-group col-md-6 col-lg-6">
-                                                <label>Auction End</label>
-                                                <input type="datetime-local" name="auction_end" id="auction_end" value="<?php echo $product['endDate']; ?>" class="form-control" />
-                                            </div>
-
-                                             <div class="form-group col-md-6 col-md-6">
-                                                <label>Allow Bidding</label>
-                                                <select name="allowBidding" required autocomplete="off" class="form-control combobox" id="allowBidding">
-                                                <option value="1">Yes</option>
-                                                <option value="2">NO</option>
-                                                </select>
-                                            </div>
                                             <div class="form-group col-md-6 col-md-6">
                                                 <label>Is Featured</label>
                                                 <select name="isFeatured" required autocomplete="off" class="form-control combobox" id="isFeatured">
@@ -394,7 +360,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		
 		<!-- This page plugins -->
 		<script src="assets/js/jquery.countdown.min.js"></script>
-		
+        
+        <script>
+            // if(<?php echo $product['startDate']; ?>.getTime() > new Date().getTime()){
+            //     $("#biddingStatus").val('Opening Soon');
+            //     //date 1 is newer
+            // }
+        </script>
+
         <!-- ================================= JS Cropper for Product Image ============================ -->
         <script>
             // ProductPicture JS Cropper Implementation
@@ -459,9 +432,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             });
 
         });
-
-
-
 
         $(document).ready(function(){
             var $modal = $('#modal');
@@ -585,9 +555,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             });
 
         });
-
-
-
 
         </script>
         <!-- ================================= JS Cropper for Product Image ============================ --->

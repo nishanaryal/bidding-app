@@ -89,25 +89,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$isFeatured = $_POST['isFeatured'];
 	$auction_start = $_POST['auction_start'];
 	$auction_end = $_POST['auction_end'];
-    $allowBidding = $_POST['allowBidding'];
+    $biddingStatus = $_POST['biddingStatus'];
 
     try {
 
-	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name', base_price = '$base_price',
-                                        shortdescription = '$shortdescription', description = '$description', 
-                                        features = 'features', additional_info = '$additional_info',
-                                        categoryid = '$categoryid', isActive = '$isActive',
-                                        isFeatured = '$isFeatured', auction_start = '$auction_start',
-                                        auction_end = '$auction_end' WHERE productid='$pid'");
+	$updateData= mysqli_query($mysqli,"UPDATE products SET name='$name',
+                                        base_price = '$base_price',
+                                        shortdescription = '$shortdescription',
+                                        description = '$description', 
+                                        features = 'features',
+                                        additional_info = '$additional_info',
+                                        categoryid = '$categoryid',
+                                        isActive = '$isActive',
+                                        isFeatured = '$isFeatured',
+                                        auction_start = '$auction_start',
+                                        biddingStatus = '$biddingStatus',
+                                        auction_end = '$auction_end'
+                                        WHERE productid='$pid'");
 
         if($updateData){
             echo "<script>alert('Update Successfully');</script>";
             header("Location:dashboard-mylistings.php");
         }
-        // if(!$updateData){
-        //     echo mysqli_error();
-        //     die('Error Occured: '.mysqli_error());
-        // }
 	} 
     catch (Exception $e)
     {
@@ -203,6 +206,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 <input type="text" name="exhibitorid" id="exhibitorid" class="form-control" hidden value="<?php echo $product['exhibitorid']; ?>">
                                             </div>
 
+                                            <div class="form-group col-md-4 col-lg-4">
+                                                <label>Auction Start</label>
+                                                <input type="datetime-local" name="auction_start" id="auction_start" value="<?php echo $product['startDate']; ?>" class="form-control" />
+                                            </div>
+
+                                             <div class="form-group col-md-4 col-lg-4">
+                                                <label>Auction End</label>
+                                                <input type="datetime-local" name="auction_end" id="auction_end" value="<?php echo $product['endDate']; ?>" class="form-control" />
+                                            </div>
+
+                                             <div class="form-group col-md-4 col-md-4">
+                                                <label>Bidding Status</label>
+                                                <select name="biddingStatus" required autocomplete="on" class="form-control combobox" id="biddingStatus">
+                                                    <option value="Running">Running</option>
+                                                    <option value="Closed">Closed</option>
+                                                    <option value="Opening Soon">Opening Soon</option>
+                                                </select>
+                                            </div>
+
                                             <div class="form-group col-md-6 col-lg-6">
                                                 <label>Base Price for Bidding</label>
                                                 <input type="number" name="base_price" id="base_price" class="form-control" min="1000" value="<?php echo $product['base_price']; ?>" placeholder="Base Price for Product">
@@ -258,29 +280,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 </textarea>
                                             </div>
 
-
-                                            <div class="form-group col-md-6 col-lg-6">
-                                                <label>Auction Start</label>
-                                                <input type="datetime-local" name="auction_start" id="auction_start" value="<?php echo $product['startDate']; ?>" class="form-control" />
-                                            </div>
-
-                                             <div class="form-group col-md-6 col-lg-6">
-                                                <label>Auction End</label>
-                                                <input type="datetime-local" name="auction_end" id="auction_end" value="<?php echo $product['endDate']; ?>" class="form-control" />
-                                            </div>
-
-                                             <div class="form-group col-md-6 col-md-6">
-                                                <label>Allow Bidding</label>
-                                                <select name="allowBidding" required autocomplete="off" class="form-control combobox" id="allowBidding">
-                                                <option value="1">Yes</option>
-                                                <option value="2">NO</option>
-                                                </select>
-                                            </div>
                                             <div class="form-group col-md-6 col-md-6">
                                                 <label>Is Featured</label>
                                                 <select name="isFeatured" required autocomplete="off" class="form-control combobox" id="isFeatured">
                                                 <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
+                                                <option value="2">InActive</option>
                                                 </select>
                                             </div>
 
@@ -288,11 +292,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                                 <label>Is Active</label>
                                                 <select name="isActive" required autocomplete="off" class="form-control combobox" id="isActive">
                                                 <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
+                                                <option value="2">InActive</option>
                                                 </select>
                                             </div>
-
-                                    
 
                                             <div class="form-group col-md-12">
                                             <input type="submit" value="SAVE" name="" id="" class="btn btn-secondary" />
